@@ -1,0 +1,11 @@
+.notfound__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.notfound__link {
+    cursor: pointer;
+}

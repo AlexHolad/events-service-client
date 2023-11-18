@@ -1,0 +1,69 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+  /* COLORS */
+  --main-color: #FEFEFE;
+  --headline-color: #384765;
+  --font-color: #9DA0C2;
+  --accent-color: #21c6e6;
+  --btn-color: #8da220;
+
+  /* FONT-SIZES */
+  --fs-100: clamp(0.78rem, calc(0.78rem + 0.03vw), 0.80rem);
+  --fs-200: clamp(0.94rem, calc(0.92rem + 0.10vw), 1.00rem);
+  --fs-300: clamp(1.13rem, calc(1.08rem + 0.21vw), 1.25rem);
+  --fs-400: clamp(1.35rem, calc(1.28rem + 0.35vw), 1.56rem);
+  --fs-500: clamp(1.62rem, calc(1.51rem + 0.56vw), 1.95rem);
+  --fs-600: clamp(1.94rem, calc(1.78rem + 0.83vw), 2.44rem);
+  --fs-700: clamp(2.33rem, calc(2.09rem + 1.20vw), 3.05rem);
+  --fs-800: clamp(2.80rem, calc(2.46rem + 1.69vw), 3.82rem);
+}
+
+
+*,*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  /* border: 1px solid red; */
+}
+
+
+img {
+  max-width: 100%;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--font-color);
+  font-size: var(--fs-400);
+  line-height: 1.6;
+}
+
+a {
+  all: unset;
+  cursor: pointer;
+}
+
+
+
+.direction {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+}
+
+.container {
+  max-width: 1280px;
+  width: 90%;
+  margin-inline: auto;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}

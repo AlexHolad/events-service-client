@@ -1,0 +1,21 @@
+.registerform__container {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 90%;
+    margin: 1em auto;
+    flex-wrap: wrap;
+    font-size: 15px;
+    padding: 2em;
+}
+
+.actions {
+    width: 100%;
+    margin: 1.5em 0;
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
