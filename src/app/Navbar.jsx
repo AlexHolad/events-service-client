@@ -42,7 +42,7 @@ export const Navbar = () => {
       <nav className="nav container direction">
         <div className="nav__firstline row">
           <Link to="/" onClick={() => resetFilters()}>
-            <h1 className="logo">{`Berlin Event`}</h1>
+            <h1 className="logo">{`Berlin Events`}</h1>
           </Link>
           <div className="nav__icons row">
             <div className="dropdown">
