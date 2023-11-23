@@ -3,11 +3,11 @@ import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
 
-import { useEventActions, useToken } from "./app/store";
+import { useEventActions} from "./app/store";
 
 import Layout from "./Layout";
 
-import { EventsList } from "./features/events/EventsList";
+import HomePage from "./pages/HomePage/HomePage";
 import Register from "./features/auth/Register";
 import NoMatch  from "./pages/NoMatch/NoMatch";
 import AddEventForm from "./features/events/AddEventForm";
@@ -15,6 +15,7 @@ import Event from "./features/events/Event";
 import SignIn from "./features/auth/SignIn";
 import UserPage from "./pages/UserPage/UserPage";
 import EditEventForm from "./features/events/EditEventForm";
+import { EventsList } from "./features/events/EventsList";
 
 function App() {
   const {refresh} = useEventActions()
@@ -26,9 +27,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           {/* USER FUNC */}
-          <Route index element={<EventsList />} />/
+          <Route index element={<HomePage />} />/
           <Route path="about" element={<h1>About</h1>} />
-          <Route path="category" element={<h1>Category</h1>} />
+          <Route path="events/:category" element={<EventsList/>} />
+          <Route path="events/:date" element={<EventsList/>} />
           <Route path="events/:eventId" element={<Event />} />
 
 

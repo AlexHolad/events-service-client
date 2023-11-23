@@ -18,7 +18,7 @@ export const Navbar = () => {
   const navigate = useNavigate();
 
   const filterByCategory = (category) => {
-    setCategory(category);
+    navigate(`/events/${category}`)
     setMenuToggle(false);
   };
 
@@ -39,7 +39,7 @@ export const Navbar = () => {
 
   return (
     <header>
-      <nav className="nav container direction">
+      <nav className="nav gen__container direction">
         <div className="nav__firstline row">
           <Link to="/" onClick={() => resetFilters()}>
             <h1 className="logo">{`Berlin Events`}</h1>
@@ -47,7 +47,7 @@ export const Navbar = () => {
           <div className="nav__icons row">
             <div className="dropdown">
             <svg
-              className="nav__icon calendar__icon"
+              className="nav__icon"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
             >
@@ -109,7 +109,7 @@ export const Navbar = () => {
         </div>
         <div className={`nav__secondline ${menuToggle ? "shown" : "toggle"}`}>
           <ul className="nav__list">
-            <li onClick={() => resetFilters()} className="nav__item">
+            <li onClick={() => filterByCategory("все")} className="nav__item">
               Все
             </li>
             <li className="nav__item">Площадки</li>

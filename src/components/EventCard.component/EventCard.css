@@ -1,0 +1,77 @@
+.eventcard__container {
+    cursor: pointer;
+    border-radius: 16px;
+    font-size: var(--fs-200);
+    transition-duration: 1s;
+    background-color: white;
+    box-shadow: rgba(157, 160, 194, 0.08) 0px 48px 80px 0px;
+    height: 92%;
+    margin: 1rem;
+}
+  
+  .eventcard__container:hover {
+    box-shadow: rgba(157, 160, 194, 0.4) 0px 3px 12px;
+  }
+  
+  .eventcard__img {
+    border-radius: 16px 16px 5px 5px;
+    width: 100%;
+    height: auto;
+  }
+  
+  .eventcard__info {
+    padding: 1em;
+  }
+  
+  .eventcard__title {
+    font-size: var(--fs-300);
+    font-weight: 500;
+    color: var(--headline-color);
+    line-height: 1.1;
+  }
+  
+  .truncate {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3; /* number of lines to show */
+              line-clamp: 2;
+      -webkit-box-orient: vertical;
+   }
+  
+  .event__text {
+  }
+  
+  .event__location {
+  }
+  
+  .eventcard__date__container {
+    margin: 0.5em 0;
+    display: flex;
+    gap: 0.2em;
+    color: var(--accent-color);
+    font-weight: 500;
+  }
+  
+  .event__day {
+  }
+  
+  .event__month {
+  }
+  
+  .event__time {
+  }
+  
+  @media (min-width: 700px) {
+      .event__container {
+          max-width: 30%;
+          box-shadow: none;
+        }
+  }
+  
+  @media (min-width: 1100px) {
+      .event__container {
+          max-width: 23%;
+        }
+  }
+  

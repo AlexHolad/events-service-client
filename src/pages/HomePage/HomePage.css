@@ -1,0 +1,13 @@
+.homepage__container {
+    gap: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    
+}
+
+.homepage__category__headline {
+    text-transform: uppercase;
+    color: var(--headline-color);
+    cursor: pointer;
+}

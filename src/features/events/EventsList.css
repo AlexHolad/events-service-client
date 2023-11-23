@@ -1,5 +1,11 @@
+.eventslist__headline {
+  text-transform: uppercase;
+  color: var(--headline-color);
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
 .events__container {
-  margin: 2em;
   display: flex;
   flex-wrap: wrap;
   gap: 1em;

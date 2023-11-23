@@ -8,7 +8,7 @@ import 'react-calendar/dist/Calendar.css';
 function CalendarElement() {
     const date = useDate()
     const {setDate} = useEventActions()
-  
+    
     return (
       <div>
         <Calendar 

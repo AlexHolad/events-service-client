@@ -91,7 +91,7 @@ function UserPage() {
   }
 
   return (
-    <div className="userpage__container container">
+    <div className="userpage__container gen__container">
       <Button action={goToAdding}>Add new Event</Button>
       <div className="userpage__events__container">{content}</div>
     </div>

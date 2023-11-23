@@ -1,9 +1,18 @@
+.search__container {
+  display: flex;
+  align-items: center;
+}
+
 .search {
     appearance: none;
     border: 1px solid var(--font-color);
     color: var(--headline-color);
     border-radius: 10px;
     outline: none;
-    width: 150px;
+    width: 200px;
     padding: 10px;
+  }
+
+  .search__icon {
+    margin-left: 1rem;
   }

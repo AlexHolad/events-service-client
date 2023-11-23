@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-import { useEvents, useCategory, useDate, useSearchField, useEventActions } from "../../app/store";
+import { useEvents, useDate, useSearchField, useEventActions } from "../../app/store";
 
 import Spinner from "../../components/Spinner.component/Spinner";
 
@@ -13,7 +13,7 @@ import "./EventsList.css";
 
 let EventExcerpt = ({ event }) => {
   return (<div className="event__container" key={event._id}>
-  <Link to={`events/${event._id}`}>
+  <Link to={`/${event._id}`}>
     <div className="event__img__container">
       <img className="event__img" src={event.img} />
     </div>
@@ -42,10 +42,10 @@ let EventExcerpt = ({ event }) => {
 export const EventsList = () => {
   // Using a query hook automatically fetches data and returns query values
   const events = useEvents();
-  const category = useCategory()
   const date = useDate()
   const searchField = useSearchField()
   const {getEvents} = useEventActions()
+  const { category } = useParams();
 
   useEffect(() => {
     moment.updateLocale("ru");
@@ -83,14 +83,15 @@ export const EventsList = () => {
   let content;
 
   if (filteredEvents) {
-    content = filteredEvents.map(event => <EventExcerpt key={event._id} event={event} />)
+      content = filteredEvents.map(event => <EventExcerpt key={event._id} event={event} />)
   } else {
     content = <div>{'Something goes wrong'}</div>;
   }
 
   return (
-    <div className="events__container container">
-      {content}
+    <div className="gen__container">
+      <h3 className="eventslist__headline">{category || date}</h3>
+      <div className="events__container">{content}</div>
     </div>
   )
 };

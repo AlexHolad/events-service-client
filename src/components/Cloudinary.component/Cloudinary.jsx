@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import "./Cloudinary.css"
 function CloudinaryUploadWidget({setImgUrl}) {
   useEffect(() => {
-    const cloudName = import.meta.env.VITE_CLOUDINARY_NAME; // replace with your own cloud name 'dnglppz2g';
-    const uploadPreset = import.meta.env.VITE_CLOUDINARY_PRESET; // replace with your own upload preset 'wkayvxgp';
+    const cloudName = import.meta.env.VITE_CLOUDINARY_NAME; 
+    const uploadPreset = import.meta.env.VITE_CLOUDINARY_PRESET; 
 
     // Remove the comments from the code below to add
     // additional functionality.
