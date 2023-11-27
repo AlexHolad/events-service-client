@@ -6,7 +6,7 @@ import "./EventCard.css"
 export default function EventCard({event}) {
   return (
     <div className="eventcard__container" key={event._id}>
-    <Link to={`/${event._id}`}>
+    <Link to={`/event/${event._id}`}>
       <div className="eventcard__img__container">
         <img className="eventcard__img" src={event.img} />
       </div>

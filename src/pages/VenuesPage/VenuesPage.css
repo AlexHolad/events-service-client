@@ -1,0 +1,6 @@
+.venuepage__headline {
+    text-transform: uppercase;
+    color: var(--headline-color);
+    cursor: pointer;
+    margin-bottom: 1rem;
+}

@@ -22,7 +22,7 @@ function Event() {
 
   if (event) {
     content = (
-      <div className="eventpage__container container">
+      <div className="eventpage__container gen__container">
         <div className="eventpage__img__container">
           <img className="eventpage__img" src={event.img} />
         </div>

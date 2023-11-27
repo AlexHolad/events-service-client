@@ -16,6 +16,7 @@ import SignIn from "./features/auth/SignIn";
 import UserPage from "./pages/UserPage/UserPage";
 import EditEventForm from "./features/events/EditEventForm";
 import { EventsList } from "./features/events/EventsList";
+import VenuesPage from "./pages/VenuesPage/VenuesPage";
 
 function App() {
   const {refresh} = useEventActions()
@@ -29,15 +30,22 @@ function App() {
           {/* USER FUNC */}
           <Route index element={<HomePage />} />/
           <Route path="about" element={<h1>About</h1>} />
-          <Route path="events/:category" element={<EventsList/>} />
-          <Route path="events/:date" element={<EventsList/>} />
-          <Route path="events/:eventId" element={<Event />} />
+          <Route path="venues" element={<VenuesPage/>} />
+         
+          {/* SHOW EVENTS BY VENUE/CATEGORY/DATE */}
+          <Route path="events/venue/:venue" element={<EventsList/>} />
+          <Route path="events/category/:category" element={<EventsList/>} />
+          <Route path="events/date" element={<EventsList/>} />
+          <Route path="events/search/:search" element={<EventsList/>} />
 
+          {/* SHOW EVENT BY ID */}
+          <Route path="event/:eventId" element={<Event />} />
 
+          {/* REGISTER SIGNIN */}
           <Route path="register" element={<Register/>} />
           <Route path="signin" element={<SignIn/>} />
 
-          {/* USER ROLE 'ORG' */}
+          {/* USER ROLE 'ORG' CAN REGISTER ADD EDIT AND DELETE THEIR EVENTS*/}
           <Route path="user" element={<UserPage />} />
           <Route path="events/add" element={<AddEventForm />} />
           <Route path="events/edit/:eventId" element={<EditEventForm/>} />

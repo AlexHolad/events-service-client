@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import { useEvents, useDate, useSearchField, useEventActions } from "../../app/store";
+import { useEvents, useSearchField, useDate, useEventActions } from "../../app/store";
 
 import Spinner from "../../components/Spinner.component/Spinner";
 
@@ -13,7 +13,7 @@ import "./EventsList.css";
 
 let EventExcerpt = ({ event }) => {
   return (<div className="event__container" key={event._id}>
-  <Link to={`/${event._id}`}>
+  <Link to={`/event/${event._id}`}>
     <div className="event__img__container">
       <img className="event__img" src={event.img} />
     </div>
@@ -42,18 +42,32 @@ let EventExcerpt = ({ event }) => {
 export const EventsList = () => {
   // Using a query hook automatically fetches data and returns query values
   const events = useEvents();
-  const date = useDate()
   const searchField = useSearchField()
-  const {getEvents} = useEventActions()
-  const { category } = useParams();
+  const {getEvents, setDate, setSearchField} = useEventActions()
+  const { category, venue } = useParams();
+  const dateFromStore = useDate()
+  const date = new Date(dateFromStore.getTime())
+  const params = useParams()
 
   useEffect(() => {
     moment.updateLocale("ru");
-  }, []);
+    console.log(params)
+  }, [params]);
 
   useEffect(() => {
    getEvents()
   },[getEvents]);
+
+  useEffect(() => {
+
+  return () => {
+
+   // Component unmounted
+   setDate(new Date())
+   setSearchField('')
+  };
+
+ }, [setDate, setSearchField]);
 
   const sortedEvents = useMemo(() => {
     const sortedEvents = [...events]
@@ -66,22 +80,37 @@ export const EventsList = () => {
   
 
   if(category === 'все') {
+    console.log('Category', category)
+    console.log('EventsList', filteredEvents)
+
       filteredEvents = [...sortedEvents]
   }
-  if(category !== 'все') {
+
+  if(category !== 'все' && category !== undefined) {
       filteredEvents = filteredEvents.filter((event)=> event.category === category)
   }
-  if(moment(date).format("MMM Do YY") !== moment(new Date()).format("MMM Do YY")) {
-      filteredEvents = filteredEvents.filter((event)=> moment(event.date).format("MMM Do YY") === moment(date).format("MMM Do YY"))
+
+  if(moment(date).format("L") !== moment(new Date()).format("L")) {
+    console.log('Date', typeof date)
+    console.log('Moment date', typeof moment(new Date()).format("L"))
+    filteredEvents = filteredEvents.filter((event)=> moment(event.date).format("L") === moment(date).format("L"))
   }
+
   if(searchField.length > 0){
     filteredEvents = filteredEvents.filter((event) =>
-    event.title.toLowerCase().includes(searchField.toLowerCase())
-  );
+    event.title.toLowerCase().includes(searchField.toLowerCase()))
   }
 
-  let content;
+  if(venue){
+    console.log('Venue', venue)
+    console.log(filteredEvents)
+    filteredEvents = filteredEvents.filter((event) => event.location.toLowerCase() === venue.toLowerCase())
+  }
 
+  
+
+  let content;
+  
   if (filteredEvents) {
       content = filteredEvents.map(event => <EventExcerpt key={event._id} event={event} />)
   } else {
@@ -90,8 +119,8 @@ export const EventsList = () => {
 
   return (
     <div className="gen__container">
-      <h3 className="eventslist__headline">{category || date}</h3>
-      <div className="events__container">{content}</div>
+      <h3 className="eventslist__headline">{category || venue || searchField || moment(date).format("L")}</h3>
+      <div className="events__container">{content.length ? content : 'В данный момент нет актуальных событий'}</div>
     </div>
   )
 };

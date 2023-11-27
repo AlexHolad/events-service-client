@@ -96,11 +96,32 @@ const AddEventForm = () => {
             onChange={onCategoryChanged}
           >
             <option value="">Выберите категорию</option>
+            <option value="гастроли">Гастроли</option>
+            <option value="местные представления">Местные представления</option>
+            <option value="вечера">Вечера</option>
+            <option value="настольные игры">Настольные игры</option>
             <option value="концерты">Концерты</option>
             <option value="театр">Театр</option>
             <option value="детям">Детям</option>
           </select>
         </div>
+        {/* <div className="form__item">
+          <h4 htmlFor="">Также показывать в категориях:</h4>
+          <select
+            className="input"
+            name="category"
+            id="category"
+            value={subCategory}
+            onChange={onSubCategoryChanged}
+          >
+            <option value="">Выберите категорию</option>
+            <option value="концерты">Концерты</option>
+            <option value="театр">Театр</option>
+            <option value="детям">Детям</option>
+          </select>
+        </div> */}
+
+
         <div className="form__item">
           <h4 htmlFor="district">Район</h4>
           <input

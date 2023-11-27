@@ -1,7 +1,7 @@
 .eventslist__headline {
   text-transform: uppercase;
   color: var(--headline-color);
-  cursor: pointer;
+  user-select: none;
   margin-bottom: 1rem;
 }
 

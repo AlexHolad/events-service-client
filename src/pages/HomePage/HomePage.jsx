@@ -34,7 +34,7 @@ export default function HomePage() {
     <div className="homepage__container gen__container">
       {categories.map((category) => (
         <div key={category}>
-          <Link to={`/events/${category}`} className="homepage__category__headline">{category}</Link>
+          <Link to={`/events/category/${category}`} className="homepage__category__headline">{category}</Link>
           <EventCarousel events={events} category={category}/>
         </div>
       ))}

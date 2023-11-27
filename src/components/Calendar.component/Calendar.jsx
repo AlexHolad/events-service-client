@@ -1,14 +1,22 @@
 import { useState } from "react";
-import {useDate, useEventActions} from "../../app/store"
+
+import { useNavigate } from "react-router-dom";
+
+import moment from "moment";
 
 import Calendar from 'react-calendar';
-
 import 'react-calendar/dist/Calendar.css';
+
+import {useDate, useEventActions} from '../../app/store.js'
 
 function CalendarElement() {
     const date = useDate()
     const {setDate} = useEventActions()
-    
+
+    const navigate = useNavigate()
+    const goToDateList = () => {
+      navigate(`/events/date`)
+    }
     return (
       <div>
         <Calendar 
@@ -20,7 +28,9 @@ function CalendarElement() {
             yearAriaLabel="Year" 
             locale="ru-RU"
             onChange={setDate} 
-            value={date} />
+            value={date} 
+            onClickDay={goToDateList}
+            /> 
       </div>
     );
   }

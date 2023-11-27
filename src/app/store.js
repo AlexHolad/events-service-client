@@ -1,17 +1,18 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const baseURL = 'https://events-service-api.onrender.com';
+const baseURL = "https://events-service-api.onrender.com";
 axios.defaults.withCredentials = true;
 
 const useEventStore = create((set, get) => ({
   events: [],
   userEvents: [],
   event: {},
-  category: 'все',
   date: new Date(),
-  searchField: '',
+  category: "все",
+  searchField: "",
   accessToken: null,
+  venues: [],
   // ⬇️ separate "namespace" for actions
   actions: {
     // AUTH REQUESTS
@@ -120,7 +121,7 @@ const useEventStore = create((set, get) => ({
     },
 
     editEvent: async (initialEvent) => {
-      console.log("Editing Event started", initialEvent)
+      console.log("Editing Event started", initialEvent);
       const response = await axios.put(`${baseURL}/events`, initialEvent, {
         headers: {
           "Content-Type": "application/json",
@@ -134,7 +135,7 @@ const useEventStore = create((set, get) => ({
             Authorization: `Bearer ${get().accessToken}`,
           },
         });
-        const {data} = response
+        const { data } = response;
         set({ userEvents: data });
       }
     },
@@ -215,16 +216,25 @@ const useEventStore = create((set, get) => ({
       const { data } = response;
       set({ event: data });
     },
-
-    setCategory: (category) => {
-      set({ category: category });
-    },
     setDate: (date) => {
-      set({ date: date });
+      set({ date });
+    },
+    setCategory: (category) => {
+      set({ category });
     },
     setSearchField: (text) => {
       set({ searchField: text });
-    }
+    },
+    getVenues: () => {
+      const events = get().events;
+      let venues = [];
+      events.forEach((event) => {
+        if (!venues.includes(event.location)) {
+          venues.push(event.location);
+        }
+      });
+      set({venues})
+    },
   },
 }));
 
@@ -232,10 +242,10 @@ export const useEvents = () => useEventStore((state) => state.events);
 export const useUserEvents = () => useEventStore((state) => state.userEvents);
 export const useToken = () => useEventStore((state) => state.accessToken);
 export const useEvent = () => useEventStore((state) => state.event);
-export const useCategory = () => useEventStore((state) => state.category);
 export const useDate = () => useEventStore((state) => state.date);
+export const useCategory = () => useEventStore((state) => state.category);
 export const useSearchField = () => useEventStore((state) => state.searchField);
-
+export const useVenues = () => useEventStore((state) => state.venues);
 
 // 🎉 one selector for all our actions
 export const useEventActions = () => useEventStore((state) => state.actions);

@@ -25,7 +25,7 @@ export default function Search() {
           onChange={handleChange}
     />
     
-    <Link to={`events/${searchField}`}><svg
+    <Link to={`/events/search/${searchField}`}><svg
               className="search__icon"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"

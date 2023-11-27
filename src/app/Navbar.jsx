@@ -13,19 +13,13 @@ export const Navbar = () => {
   const [visCalendar, toggleVisCalendar] = useState(false);
 
   const accessToken = useToken();
-  const { signout, setCategory, setDate, setSearchField } = useEventActions();
+  const { signout} = useEventActions();
 
   const navigate = useNavigate();
 
   const filterByCategory = (category) => {
-    navigate(`/events/${category}`)
+    navigate(`/events/category/${category}`)
     setMenuToggle(false);
-  };
-
-  const resetFilters = () => {
-    filterByCategory("все");
-    setDate(new Date());
-    setSearchField('')
   };
 
   const handleSignOut = async () => {
@@ -41,7 +35,7 @@ export const Navbar = () => {
     <header>
       <nav className="nav gen__container direction">
         <div className="nav__firstline row">
-          <Link to="/" onClick={() => resetFilters()}>
+          <Link to="/">
             <h1 className="logo">{`Berlin Events`}</h1>
           </Link>
           <div className="nav__icons row">
@@ -112,7 +106,7 @@ export const Navbar = () => {
             <li onClick={() => filterByCategory("все")} className="nav__item">
               Все
             </li>
-            <li className="nav__item">Площадки</li>
+            <Link to={'/venues'}><li className="nav__item">Площадки</li></Link>
             <li
               onClick={() => filterByCategory("концерты")}
               className="nav__item"
