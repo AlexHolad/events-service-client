@@ -14,6 +14,12 @@ import "./AddEventForm.css";
 const AddEventForm = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
+  
+  // SUBCATEGORIES
+  const subcategories = ['концерты', 'театр', 'детям']
+  // CHECKBOXES FOR SUBCATEGORIES
+  const [checkedState, setCheckedState] = useState([]);
+
   const [district, setDistrict] = useState("");
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("");
@@ -27,17 +33,19 @@ const AddEventForm = () => {
   const { addNewEvent } = useEventActions();
 
   const onTitleChanged = (e) => setTitle(e.target.value);
-  const onCategoryChanged = (e) => setCategory(e.target.value);
+  const onCategoryChanged = (e) => setCategory(e.target.value);  
   const onLocationChanged = (e) => setLocation(e.target.value);
   const onDistrictChanged = (e) => setDistrict(e.target.value);
   const onAddressChanged = (e) => setAddress(e.target.value);
   const onDateChanged = (e) => setDate(e.target.value);
   const onDescriptionChanged = (e) => setDescription(e.target.value);
 
+
   const handleSend = () => {
     const newEvent = addNewEvent({
       title,
       category,
+      subcategories: checkedState,
       district,
       location,
       address,
@@ -52,6 +60,7 @@ const AddEventForm = () => {
   const handleClear = () => {
     setTitle("");
     setCategory("");
+    setCheckedState([])
     setDistrict("");
     setLocation("");
     setAddress("");
@@ -100,26 +109,33 @@ const AddEventForm = () => {
             <option value="местные представления">Местные представления</option>
             <option value="вечера">Вечера</option>
             <option value="настольные игры">Настольные игры</option>
-            <option value="концерты">Концерты</option>
-            <option value="театр">Театр</option>
-            <option value="детям">Детям</option>
           </select>
         </div>
-        {/* <div className="form__item">
-          <h4 htmlFor="">Также показывать в категориях:</h4>
-          <select
-            className="input"
-            name="category"
-            id="category"
-            value={subCategory}
-            onChange={onSubCategoryChanged}
-          >
-            <option value="">Выберите категорию</option>
-            <option value="концерты">Концерты</option>
-            <option value="театр">Театр</option>
-            <option value="детям">Детям</option>
-          </select>
-        </div> */}
+        <div className="form__item">
+          <h4 htmlFor="">Также показывать в:</h4>
+          <ul className="subcategories-list">
+        {subcategories.map((subcategory, index) => {
+          return (
+            <li key={index}>
+              <div className="subcategories-list-item">
+                  <input
+                    type="checkbox"
+                    name={subcategory}
+                    value={subcategory}
+                    checked={checkedState.includes(subcategory)}
+                    onChange={(e) => {
+                      e.target.checked
+                        ? setCheckedState([...checkedState, e.target.value])
+                        : setCheckedState([...checkedState].filter((subcategory) => subcategory !== e.target.value));
+                    }}
+                  />
+                  <label htmlFor={`custom-checkbox-${index}`}>{subcategory}</label>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+        </div>
 
 
         <div className="form__item">

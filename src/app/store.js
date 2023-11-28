@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const baseURL = "https://events-service-api.onrender.com";
+const baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 
 const useEventStore = create((set, get) => ({
@@ -100,6 +100,8 @@ const useEventStore = create((set, get) => ({
     addNewEvent: async (initialEvent) => {
       console.log("adding Event started");
       console.log(get().accessToken);
+      console.log('Front',initialEvent);
+    
       try {
         const response = await axios.post(`${baseURL}/events`, initialEvent, {
           headers: {

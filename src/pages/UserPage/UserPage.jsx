@@ -14,7 +14,7 @@ import "./UserPage.css";
 let EventExcerpt = ({ event, deleteEvent, goToEditPage }) => {
   const { _id } = event;
   return (
-    <div className="event__container" key={event._id}>
+    <div className="userpage__event__container" key={event._id}>
       <Link to={`/events/${event._id}`}>
         <div className="event__img__container">
           <img className="event__img" src={event.img} />
@@ -71,7 +71,7 @@ function UserPage() {
   const sortedEvents = useMemo(() => {
     const sortedEvents = events.slice();
     // Sort posts in descending chronological order
-    sortedEvents.sort((a, b) => b.date.localeCompare(a.date));
+    sortedEvents.sort((a, b) => a.date.localeCompare(b.date));
     return sortedEvents;
   }, [events]);
 

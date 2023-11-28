@@ -23,7 +23,7 @@ function Register() {
     const onEmailChanged = e => setEmail(e.target.value) 
     const onPasswordChanged = e => setPassword(e.target.value) 
 
-    useEffect(()=> {if(accessToken){navigate("/events/add")}}, [accessToken])
+    useEffect(()=> {if(accessToken){navigate("/events/add")}}, [accessToken, navigate])
 
     const handleRegister = async () => { 
       try {
@@ -41,7 +41,6 @@ function Register() {
 
   return (
     <div className="registerform__container">
-      {accessToken? <h2>{accessToken}</h2>: <h2>{"AcceessToken is not available"}</h2>}
         <div className="form__item">
           <h4 htmlFor="title">Электронная почта</h4>
         <input

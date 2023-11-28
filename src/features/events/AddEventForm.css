@@ -49,6 +49,27 @@ label {
     max-width: 100%;
 }
 
+.subcategories-list {
+    display: flex;
+    column-gap: 1rem;
+    padding-left: 0.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.subcategories-list-item {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.subcategories-list-item label {
+   display: flex;
+   margin: 0;
+   padding-bottom: 0.2rem;
+   text-transform: capitalize;
+}
+
 .form__image {
     max-width: 100%;
     max-height: auto;

@@ -36,7 +36,7 @@ export const Navbar = () => {
       <nav className="nav gen__container direction">
         <div className="nav__firstline row">
           <Link to="/">
-            <h1 className="logo">{`Berlin Events`}</h1>
+            <h1 className="logo">{`Svoi.Berlin`}</h1>
           </Link>
           <div className="nav__icons row">
             <div className="dropdown">

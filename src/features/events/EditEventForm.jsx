@@ -14,6 +14,11 @@ import "./EditEventForm.css";
 const EditEventForm = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
+  // SUBCATEGORIES
+  const subcategories = ['концерты', 'театр', 'детям']
+  // CHECKBOXES FOR SUBCATEGORIES
+  const [checkedState, setCheckedState] = useState([]);
+
   const [district, setDistrict] = useState("");
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("");
@@ -38,6 +43,7 @@ const EditEventForm = () => {
       _id: eventId,
       title,
       category,
+      subcategories: checkedState,
       district,
       location,
       address,
@@ -52,6 +58,7 @@ const EditEventForm = () => {
   const handleClear = () => {
     setTitle("");
     setCategory("");
+    setCheckedState([])
     setDistrict("");
     setLocation("");
     setAddress("");
@@ -100,6 +107,31 @@ const EditEventForm = () => {
             <option value="театр">Театр</option>
             <option value="детям">Детям</option>
           </select>
+        </div>
+        <div className="form__item">
+          <h4 htmlFor="">Также показывать в:</h4>
+          <ul className="subcategories-list">
+        {subcategories.map((subcategory, index) => {
+          return (
+            <li key={index}>
+              <div className="subcategories-list-item">
+                  <input
+                    type="checkbox"
+                    name={subcategory}
+                    value={subcategory}
+                    checked={checkedState.includes(subcategory)}
+                    onChange={(e) => {
+                      e.target.checked
+                        ? setCheckedState([...checkedState, e.target.value])
+                        : setCheckedState([...checkedState].filter((subcategory) => subcategory !== e.target.value));
+                    }}
+                  />
+                  <label htmlFor={`custom-checkbox-${index}`}>{subcategory}</label>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
         </div>
         <div className="form__item">
           <h4 htmlFor="district">Район</h4>
