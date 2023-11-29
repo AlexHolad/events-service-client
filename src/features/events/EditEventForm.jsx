@@ -103,9 +103,10 @@ const EditEventForm = () => {
             onChange={onCategoryChanged}
           >
             <option value="">Выберите категорию</option>
-            <option value="концерты">Концерты</option>
-            <option value="театр">Театр</option>
-            <option value="детям">Детям</option>
+            <option value="гастроли">Гастроли</option>
+            <option value="местные представления">Местные представления</option>
+            <option value="вечера">Вечера</option>
+            <option value="настольные игры">Настольные игры</option>
           </select>
         </div>
         <div className="form__item">

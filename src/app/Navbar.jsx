@@ -22,6 +22,11 @@ export const Navbar = () => {
     setMenuToggle(false);
   };
 
+  const filterBySubCategory = (subCategory) => {
+    navigate(`/events/subcategory/${subCategory}`)
+    setMenuToggle(false);
+  };
+
   const handleSignOut = async () => {
     try {
       signout();
@@ -108,15 +113,15 @@ export const Navbar = () => {
             </li>
             <Link to={'/venues'}><li className="nav__item">Площадки</li></Link>
             <li
-              onClick={() => filterByCategory("концерты")}
+              onClick={() => filterBySubCategory("концерты")}
               className="nav__item"
             >
               Концерты
             </li>
-            <li onClick={() => filterByCategory("театр")} className="nav__item">
+            <li onClick={() => filterBySubCategory("театр")} className="nav__item">
               Театр
             </li>
-            <li onClick={() => filterByCategory("детям")} className="nav__item">
+            <li onClick={() => filterBySubCategory("детям")} className="nav__item">
               Детям
             </li>
           </ul>

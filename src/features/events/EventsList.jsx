@@ -44,7 +44,7 @@ export const EventsList = () => {
   const events = useEvents();
   const searchField = useSearchField()
   const {getEvents, setDate, setSearchField} = useEventActions()
-  const { category, venue } = useParams();
+  const { category, venue, subcategory } = useParams();
   const dateFromStore = useDate()
   const date = new Date(dateFromStore.getTime())
   const params = useParams()
@@ -61,7 +61,6 @@ export const EventsList = () => {
   useEffect(() => {
 
   return () => {
-
    // Component unmounted
    setDate(new Date())
    setSearchField('')
@@ -80,15 +79,16 @@ export const EventsList = () => {
   
 
   if(category === 'все') {
-    console.log('Category', category)
-    console.log('EventsList', filteredEvents)
-
       filteredEvents = [...sortedEvents]
   }
 
   if(category !== 'все' && category !== undefined) {
       filteredEvents = filteredEvents.filter((event)=> event.category === category)
   }
+
+  if(subcategory) {
+    filteredEvents = filteredEvents.filter((event)=> event.subcategories.includes(subcategory))
+}
 
   if(moment(date).format("L") !== moment(new Date()).format("L")) {
     console.log('Date', typeof date)
@@ -119,7 +119,7 @@ export const EventsList = () => {
 
   return (
     <div className="gen__container">
-      <h3 className="eventslist__headline">{category || venue || searchField || moment(date).format("L")}</h3>
+      <h3 className="eventslist__headline">{category || venue || searchField || subcategory || moment(date).format("L")}</h3>
       <div className="events__container">{content.length ? content : 'В данный момент нет актуальных событий'}</div>
     </div>
   )

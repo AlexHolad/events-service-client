@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const baseURL = "https://events-service-api.onrender.com";
+const baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 
 const useEventStore = create((set, get) => ({

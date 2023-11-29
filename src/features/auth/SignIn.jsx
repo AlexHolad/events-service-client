@@ -40,6 +40,7 @@ const SignIn = () => {
 
   const content = (
     <div className="registerform__container">
+      <h3>{errMsg}</h3>
       <div className="form__item">
         <h4 htmlFor="title">Электронная почта</h4>
         <input

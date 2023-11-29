@@ -35,6 +35,7 @@ function App() {
           {/* SHOW EVENTS BY VENUE/CATEGORY/DATE */}
           <Route path="events/venue/:venue" element={<EventsList/>} />
           <Route path="events/category/:category" element={<EventsList/>} />
+          <Route path="events/subcategory/:subcategory" element={<EventsList/>} />
           <Route path="events/date" element={<EventsList/>} />
           <Route path="events/search/:search" element={<EventsList/>} />
 
