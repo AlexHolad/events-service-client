@@ -29,7 +29,6 @@ let EventExcerpt = ({ event, deleteEvent, goToEditPage }) => {
             <p className="event__day">{moment(event.date).format("D")},</p>
             <p className="event__time">{moment(event.date).format("HH:mm")}</p>
           </div>
-          <p className="event__district">{event.district}</p>
           <p className="event__location">{event.location}</p>
         </div>
       </Link>
