@@ -24,7 +24,6 @@ export default function EventCard({event}) {
             {moment(event.date).format("HH:mm")}
           </p>
         </div>
-        <p className="eventcard__district">{event.district}</p>
         <p className="eventcard__location">{event.location}</p>
       </div>
     </Link>

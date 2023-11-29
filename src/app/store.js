@@ -145,7 +145,7 @@ const useEventStore = create((set, get) => ({
     deleteEvent: async (_id) => {
       console.log("Deleting started", typeof _id);
       try {
-        const response = await axios.delete(`${baseURL}/events`, {
+        await axios.delete(`${baseURL}/events`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${get().accessToken}`,

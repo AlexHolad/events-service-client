@@ -36,10 +36,6 @@ function Event() {
           </div>
           <h2 className="eventpage__title truncate">{event.title}</h2>
           <div className="event__item">
-          <h5 className="event__item__headline">Район</h5>
-          <p className="eventpage__district">{event.district}</p>
-          </div>
-          <div className="event__item">
           <h5 className="event__item__headline">Площадка</h5>
           <p className="eventpage__location">{event.location}</p>
           <p className="eventpage__address">{event.address}</p>

@@ -20,7 +20,6 @@ const AddEventForm = () => {
   // CHECKBOXES FOR SUBCATEGORIES
   const [checkedState, setCheckedState] = useState([]);
 
-  const [district, setDistrict] = useState("");
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("");
   const [date, setDate] = useState("");
@@ -35,7 +34,6 @@ const AddEventForm = () => {
   const onTitleChanged = (e) => setTitle(e.target.value);
   const onCategoryChanged = (e) => setCategory(e.target.value);  
   const onLocationChanged = (e) => setLocation(e.target.value);
-  const onDistrictChanged = (e) => setDistrict(e.target.value);
   const onAddressChanged = (e) => setAddress(e.target.value);
   const onDateChanged = (e) => setDate(e.target.value);
   const onDescriptionChanged = (e) => setDescription(e.target.value);
@@ -46,7 +44,6 @@ const AddEventForm = () => {
       title,
       category,
       subcategories: checkedState,
-      district,
       location,
       address,
       date,
@@ -60,8 +57,7 @@ const AddEventForm = () => {
   const handleClear = () => {
     setTitle("");
     setCategory("");
-    setCheckedState([])
-    setDistrict("");
+    setCheckedState([]);
     setLocation("");
     setAddress("");
     setDate("");
@@ -135,19 +131,6 @@ const AddEventForm = () => {
           );
         })}
       </ul>
-        </div>
-
-
-        <div className="form__item">
-          <h4 htmlFor="district">Район</h4>
-          <input
-          className="input"
-            type="text"
-            id="district"
-            name="district"
-            value={district}
-            onChange={onDistrictChanged}
-          />
         </div>
         <div className="form__item">
           <h4 htmlFor="location">Площадка</h4>
