@@ -155,7 +155,7 @@ const EditEventForm = () => {
       </div>
       <div className="form__block form__block__second">
         <div className="form__item">
-          <h4 htmlFor="img">Загрузить изображение</h4>
+          <button htmlFor="img" className="button">Загрузить изображение</button>
           <CloudinaryUploadWidget setImgUrl={setImgUrl} />
           <img id="uploadedimage" className="form__image" src=""></img>
         </div>

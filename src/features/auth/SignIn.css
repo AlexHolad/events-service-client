@@ -1,0 +1,61 @@
+.signinform__container{
+    border-radius: 20px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 90%;
+    margin: 1em auto;
+    flex-wrap: wrap;
+    font-size: 15px;
+    padding: 2em;
+    border-radius: 20px;
+}
+
+.signinform__actions {
+    width: 100%;
+    margin: 1.5em 0;
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.signin__headline{
+    margin: auto;
+    
+}
+
+.signin__error{
+    color: var(--btn-color);
+    margin: 0 auto;
+}
+
+
+.input, .select {
+    margin-top: 1em;
+    padding: 0.8em;
+    border-radius: 6px;
+    max-width: 100%;
+    outline: none;
+    background-color: #f7f7f7;
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+    font-family: Poppins-Regular;
+    color: #333333;
+    line-height: 1.2;
+    font-size: 18px;
+    display: block;
+    padding: 0 20px;
+}
+
+.signin__p {
+    margin: 0 auto;
+    color: rgb(187, 187, 187)
+}
+
+.signin__link{
+    color: var(--font-color);
+    padding-left: 0.1rem;
+}

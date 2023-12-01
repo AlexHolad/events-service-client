@@ -24,9 +24,7 @@ const AddEventForm = () => {
   const [address, setAddress] = useState("");
   const [date, setDate] = useState("");
   const [imgUrl, setImgUrl] = useState("");
-  const [description, setDescription] = useState(
-    "Добавьте интересное описание к вашему мероприятию..."
-  );
+  const [description, setDescription] = useState("");
 
   const navigate = useNavigate()
   const { addNewEvent } = useEventActions();
@@ -157,7 +155,6 @@ const AddEventForm = () => {
       </div>
       <div className="form__block form__block__second">
         <div className="form__item">
-          <h4 htmlFor="img">Загрузить изображение</h4>
           <CloudinaryUploadWidget setImgUrl={setImgUrl} />
           <img id="uploadedimage" className="form__image" src=""></img>
         </div>

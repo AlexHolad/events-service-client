@@ -49,7 +49,7 @@ function CloudinaryUploadWidget({setImgUrl}) {
     );
   }, [setImgUrl]);
 
-  return <button id="upload_widget" className="cloudinary__btn">Загрузить изображение</button>;
+  return <button id="upload_widget" className="cloudinary__btn button">Загрузить изображение</button>;
 }
 
 export default CloudinaryUploadWidget;

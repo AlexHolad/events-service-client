@@ -1,49 +1,53 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import { useEventActions } from "../../app/store";
 
+import "./SignIn.css";
+
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errMsg, setErrMsg] = useState("error");
+  const [errMsg, setErrMsg] = useState("");
 
-  const navigate = useNavigate()
-  const {signin} = useEventActions()
+  const navigate = useNavigate();
+  const { signin } = useEventActions();
 
   const onEmailChanged = (e) => setEmail(e.target.value);
   const onPasswordChanged = (e) => setPassword(e.target.value);
 
   const handleSend = async () => {
+    if (!email && !password) {
+      return setErrMsg("Все поля обязательны для заполнения");
+    } else if (!email) {
+      return setErrMsg("Необходимо ввести Email");
+    } else if (!new RegExp(/\S+@\S+\.\S+/).test(email)) {
+      return setErrMsg("Некорректный формат email");
+    }
+    if (!password) {
+      return setErrMsg("Необходимо ввести Password");
+    } else if (password.length < 8) {
+      return setErrMsg("Password должен содержать минимум 8 знаков");
+    }
+    setErrMsg("");
     try {
-      signin({ email, password });
+      await signin({ email, password });
       setEmail("");
       setPassword("");
-      navigate("/user");
+      navigate("/user")
     } catch (err) {
-      if (!err.status) {
-        setErrMsg("No Server Response");
-      } else if (err.status === "400") {
-        setErrMsg("Missing Username or Password");
-      } else if (err.status === "401") {
-        setErrMsg("Unathorized");
-      } else {
-        setErrMsg(err.data?.message);
-      }
+      console.log("Error", err)
     }
-  };
-  const handleClear = () => {
-    setEmail("");
-    setPassword("");
-    navigate("user");
   };
 
   const content = (
-    <div className="registerform__container">
-      <h3>{errMsg}</h3>
+    <div className="signinform__container">
+      <h3 className="signin__headline">Добро пожаловать</h3>
+      <h5 className="signin__error">{errMsg}</h5>
       <div className="form__item">
         <h4 htmlFor="title">Электронная почта</h4>
         <input
+          className="input"
           type="email"
           id="email"
           name="email"
@@ -56,6 +60,7 @@ const SignIn = () => {
       <div className="form__item">
         <h4 htmlFor="title">Пароль</h4>
         <input
+          className="input"
           type="password"
           id="password"
           name="password"
@@ -64,14 +69,16 @@ const SignIn = () => {
           required
         />
       </div>
-      
-      <p><span>Нет Аккаунта?</span> <Link to="/register">Зарегистрироваться </Link></p>
-      <div className="actions">
-        <button className="form__btn" onClick={handleSend}>
+
+      <p className="signin__p">
+        <span>Нет Аккаунта?</span>{" "}
+        <Link to="/register" className="signin__link">
+          Создать
+        </Link>
+      </p>
+      <div className="signinform__actions">
+        <button className="form__btn button" onClick={handleSend}>
           {"Войти"}
-        </button>
-        <button className="form__btn" onClick={handleClear}>
-          {"Очистить"}
         </button>
       </div>
     </div>
