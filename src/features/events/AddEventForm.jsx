@@ -12,55 +12,55 @@ import CloudinaryUploadWidget from "../../components/Cloudinary.component/Cloudi
 import "./AddEventForm.css";
 
 const AddEventForm = () => {
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
-  
+  const [form, setForm] = useState({
+    title: "",
+    category: "",
+    subcategories: [],
+    location: "",
+    address: "",
+    date: "",
+    imgUrl: "",
+    description: "",
+  });
+  const [imgUrl, setImgUrl] = useState("")
+
   // SUBCATEGORIES
-  const subcategories = ['концерты', 'театр', 'детям']
+  const subcategories = ["концерты", "театр", "детям"];
   // CHECKBOXES FOR SUBCATEGORIES
   const [checkedState, setCheckedState] = useState([]);
 
-  const [location, setLocation] = useState("");
-  const [address, setAddress] = useState("");
-  const [date, setDate] = useState("");
-  const [imgUrl, setImgUrl] = useState("");
-  const [description, setDescription] = useState("");
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { addNewEvent } = useEventActions();
 
-  const onTitleChanged = (e) => setTitle(e.target.value);
-  const onCategoryChanged = (e) => setCategory(e.target.value);  
-  const onLocationChanged = (e) => setLocation(e.target.value);
-  const onAddressChanged = (e) => setAddress(e.target.value);
-  const onDateChanged = (e) => setDate(e.target.value);
-  const onDescriptionChanged = (e) => setDescription(e.target.value);
+  const onFormChanged = (e) => {
+    setForm({...form,
+        [e.target.name]: e.target.value,
+      })
+  }
+
 
 
   const handleSend = () => {
-    const newEvent = addNewEvent({
-      title,
-      category,
+    console.log(form)
+    const newEvent = addNewEvent({...form,
       subcategories: checkedState,
-      location,
-      address,
-      date,
       img: imgUrl,
-      description,
-    })
-    if(newEvent){
-      navigate('/user')
+    });
+    if (newEvent) {
+      navigate("/user");
     }
   };
-  const handleClear = () => {
-    setTitle("");
-    setCategory("");
-    setCheckedState([]);
-    setLocation("");
-    setAddress("");
-    setDate("");
-    setDescription("");
-    setImgUrl("");
+  const handleClear = () => { 
+    setForm({
+      title: "",
+      category: "",
+      subcategories: [],
+      location: "",
+      address: "",
+      date: "",
+      imgUrl: "",
+      description: "",
+    })
   };
 
   return (
@@ -69,24 +69,24 @@ const AddEventForm = () => {
         <div className="form__item">
           <h4 htmlFor="title">Название</h4>
           <input
-          className="input"
+            className="input"
             type="text"
             id="title"
-            name="eventname"
+            name="title"
             placeholder="Название события"
-            value={title}
-            onChange={onTitleChanged}
+            value={form.title}
+            onChange={onFormChanged}
           />
         </div>
         <div className="form__item">
           <h4 htmlFor="data">Дата и время</h4>
           <input
-          className="input"
+            className="input"
             type="datetime-local"
             id="data"
-            name="data"
-            value={date}
-            onChange={onDateChanged}
+            name="date"
+            value={form.date}
+            onChange={onFormChanged}
           />
         </div>
         <div className="form__item">
@@ -95,8 +95,8 @@ const AddEventForm = () => {
             className="input"
             name="category"
             id="category"
-            value={category}
-            onChange={onCategoryChanged}
+            value={form.category}
+            onChange={onFormChanged}
           >
             <option value="">Выберите категорию</option>
             <option value="гастроли">Гастроли</option>
@@ -108,48 +108,54 @@ const AddEventForm = () => {
         <div className="form__item">
           <h4 htmlFor="">Также показывать в:</h4>
           <ul className="subcategories-list">
-        {subcategories.map((subcategory, index) => {
-          return (
-            <li key={index}>
-              <div className="subcategories-list-item">
-                  <input
-                    type="checkbox"
-                    name={subcategory}
-                    value={subcategory}
-                    checked={checkedState.includes(subcategory)}
-                    onChange={(e) => {
-                      e.target.checked
-                        ? setCheckedState([...checkedState, e.target.value])
-                        : setCheckedState([...checkedState].filter((subcategory) => subcategory !== e.target.value));
-                    }}
-                  />
-                  <label htmlFor={`custom-checkbox-${index}`}>{subcategory}</label>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+            {subcategories.map((subcategory, index) => {
+              return (
+                <li key={index}>
+                  <div className="subcategories-list-item">
+                    <input
+                      type="checkbox"
+                      name={subcategory}
+                      value={subcategory}
+                      checked={checkedState.includes(subcategory)}
+                      onChange={(e) => {
+                        e.target.checked
+                          ? setCheckedState([...checkedState, e.target.value])
+                          : setCheckedState(
+                              [...checkedState].filter(
+                                (subcategory) => subcategory !== e.target.value
+                              )
+                            );
+                      }}
+                    />
+                    <label htmlFor={`custom-checkbox-${index}`}>
+                      {subcategory}
+                    </label>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         </div>
         <div className="form__item">
           <h4 htmlFor="location">Площадка</h4>
           <input
-          className="input"
+            className="input"
             type="text"
             id="location"
             name="location"
-            value={location}
-            onChange={onLocationChanged}
+            value={form.location}
+            onChange={onFormChanged}
           />
         </div>
         <div className="form__item">
           <h4 htmlFor="address">Адрес</h4>
           <input
-          className="input"
+            className="input"
             type="text"
             id="address"
             name="address"
-            value={address}
-            onChange={onAddressChanged}
+            value={form.address}
+            onChange={onFormChanged}
           />
         </div>
       </div>
@@ -162,12 +168,12 @@ const AddEventForm = () => {
       <div className="form__block">
         <h4 htmlFor="dsec">Описание</h4>
         <textarea
-          name="textarea"
+          name="description"
           rows="5"
           cols="40"
           className="form__textarea input"
-          value={description}
-          onChange={onDescriptionChanged}
+          value={form.description}
+          onChange={onFormChanged}
         />
       </div>
       <div className="actions">

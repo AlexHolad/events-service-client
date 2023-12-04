@@ -2,6 +2,9 @@ import { useState} from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 
+import { QueryClient, useMutation, useQueryClient} from "@tanstack/react-query";
+import { register } from "../../app/api";
+
 import { useEventActions } from "../../app/store";
 
 // CSS
@@ -13,7 +16,20 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const { register } = useEventActions();
+  const queryClient = useQueryClient()
+  const {setToken} = useEventActions()
+
+  const {mutate} = useMutation({
+    mutationFn: register,
+    onSuccess: ({data}) => {
+      queryClient.setQueryData(["accessToken"], () => data)
+      setToken(data)
+      navigate("/user")
+    },
+    onError: (error) => {
+      setErrMsg(error.response.data)
+    }
+  })
 
   const navigate = useNavigate();
 
@@ -34,14 +50,7 @@ function Register() {
       return setErrMsg("Password должен содержать минимум 8 знаков");
     }
     setErrMsg("");
-    try {
-      await register({ email, password });
-      setEmail("");
-      setPassword("");
-      navigate("/user")
-    } catch (err) {
-      console.log(err);
-    }
+    mutate({ email, password });
   };
 
   return (

@@ -1,9 +1,6 @@
-import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
-
-import { useEventActions} from "./app/store";
 
 import Layout from "./Layout";
 
@@ -19,10 +16,7 @@ import { EventsList } from "./features/events/EventsList";
 import VenuesPage from "./pages/VenuesPage/VenuesPage";
 
 function App() {
-  const {refresh} = useEventActions()
-  useEffect(()=> {
-    refresh()
-  })
+  
   return (
     <>
       <Routes>
