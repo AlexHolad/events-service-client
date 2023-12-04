@@ -1,12 +1,12 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const devMode = true;
+const mode = "PROD"
 
-const baseURL = devMode ? "http://localhost:5000" : "https://events-service-api.onrender.com";
+const baseURL = mode === "DEV" ? "http://localhost:5000": "https://events-service-api.onrender.com";
 axios.defaults.withCredentials = true;
 
-const eventStore = (set, get) => ({
+const useEventStore = create((set, get) => ({
   events: [],
   userEvents: [],
   event: {},
@@ -18,8 +18,7 @@ const eventStore = (set, get) => ({
   // ⬇️ separate "namespace" for actions
   actions: {
     // AUTH REQUESTS
-    setToken: accessToken => set({ accessToken }),
-    
+
     register: async (credentials) => {
       const response = await axios.post(`${baseURL}/register`, credentials);
       const { data } = response;
@@ -33,9 +32,10 @@ const eventStore = (set, get) => ({
         const { data } = response;
         console.log(data);
         set({ accessToken: await data.accessToken });
+        // Get user Events
+        console.log("fetching userEvents started");
+        console.log(get().accessToken);
         try {
-          // Get user Events
-          console.log("fetching userEvents started");
           const response2 = await axios.get(`${baseURL}/user/events`, {
             headers: {
               "Content-Type": "application/json",
@@ -51,7 +51,6 @@ const eventStore = (set, get) => ({
           if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
-            
             return (error);
           }
         }
@@ -59,7 +58,6 @@ const eventStore = (set, get) => ({
         if (error.response) {
           // The request was made and the server responded with a status code
           // that falls out of the range of 2xx
-          console.log("Store signinError")
           return (error);
         }
       }
@@ -87,7 +85,6 @@ const eventStore = (set, get) => ({
       const response = await axios.post(`${baseURL}/signout`);
       console.log(response);
       const { data } = response;
-      localStorage.removeItem('accessToken');
       set({ accessToken: await data.accessToken });
     },
 
@@ -240,9 +237,8 @@ const eventStore = (set, get) => ({
       set({venues})
     },
   },
-});
+}));
 
-export const useEventStore = create(eventStore)
 export const useEvents = () => useEventStore((state) => state.events);
 export const useUserEvents = () => useEventStore((state) => state.userEvents);
 export const useToken = () => useEventStore((state) => state.accessToken);

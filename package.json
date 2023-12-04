@@ -10,13 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.12.2",
-    "@tanstack/react-query-devtools": "^5.12.2",
     "axios": "^1.5.1",
-    "axios-auth-refresh": "^3.3.6",
     "cloudinary-react": "^1.8.1",
     "dotenv": "^16.3.1",
     "moment": "^2.29.4",
+    "moment-timezone": "^0.5.43",
     "react": "^18.2.0",
     "react-calendar": "^4.6.1",
     "react-dom": "^18.2.0",
@@ -25,7 +23,6 @@
     "zustand": "^4.4.4"
   },
   "devDependencies": {
-    "@tanstack/eslint-plugin-query": "^5.12.1",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^4.0.0",

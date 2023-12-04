@@ -3,6 +3,7 @@ import moment from "moment"
 // CSS
 import "./EventCard.css"
 
+
 export default function EventCard({event}) {
   return (
     <div className="eventcard__container" key={event._id}>
@@ -21,7 +22,7 @@ export default function EventCard({event}) {
           </p>
           <p className="eventcard__day">{moment(event.date).format("D")},</p>
           <p className="eventcard__time">
-            {moment(event.date).format("HH:mm")}
+            {moment.utc(event.date).format("HH:mm")}
           </p>
         </div>
         <p className="eventcard__location">{event.location}</p>

@@ -5,7 +5,7 @@ import { useEvents, useSearchField, useDate, useEventActions } from "../../app/s
 
 import Spinner from "../../components/Spinner.component/Spinner";
 
-import moment from "moment";
+import moment from 'moment'
 import "moment/dist/locale/ru";
 
 
@@ -28,7 +28,7 @@ let EventExcerpt = ({ event }) => {
         </p>
         <p className="event__day">{moment(event.date).format("D")},</p>
         <p className="event__time">
-          {moment(event.date).format("HH:mm")}
+          {moment.utc(event.date).format("HH:mm")}
         </p>
       </div>
       <p className="event__location">{event.location}</p>
@@ -44,14 +44,11 @@ export const EventsList = () => {
   const searchField = useSearchField()
   const {getEvents, setDate, setSearchField} = useEventActions()
   const { category, venue, subcategory } = useParams();
-  const dateFromStore = useDate()
-  const date = new Date(dateFromStore.getTime())
-  const params = useParams()
+  const date = useDate()
 
   useEffect(() => {
     moment.updateLocale("ru");
-    console.log(params)
-  }, [params]);
+  }, []);
 
   useEffect(() => {
    getEvents()

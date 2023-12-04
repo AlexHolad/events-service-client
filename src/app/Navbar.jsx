@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { useToken, useEventActions } from "./store";
+import { useToken, useSearchField, useEventActions } from "./store";
 
 import Search from "../components/Search.component/Search";
 import CalendarElement from "../components/Calendar.component/Calendar";
@@ -13,13 +13,8 @@ export const Navbar = () => {
   const [visCalendar, toggleVisCalendar] = useState(false);
 
   const accessToken = useToken();
-  const { signout, setToken} = useEventActions();
+  const { signout} = useEventActions();
 
-  useEffect(()=> {
-    if(localStorage.getItem('accessToken')){
-      setToken(localStorage.getItem('accessToken'))
-    }
-  },[setToken])
   const navigate = useNavigate();
 
   const filterByCategory = (category) => {

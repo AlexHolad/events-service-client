@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-import { useMutation, useQueryClient} from "@tanstack/react-query";
-import { signin } from "../../app/api";
-
 import { useEventActions } from "../../app/store";
 
 import "./SignIn.css";
@@ -13,25 +10,8 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
-  const queryClient = useQueryClient()
-
-  const {setToken} = useEventActions()
-
   const navigate = useNavigate();
-
-  const {mutate} = useMutation({
-    mutationFn: signin,
-    onSuccess: ({data}) => {
-      queryClient.setQueryData(["accessToken"], () => data)
-      setToken(data.accessToken)
-      navigate("/user")
-    },
-    onError: (error) => {
-      setErrMsg(error.response.data)
-    }
-  })
-
-
+  const { signin } = useEventActions();
 
   const onEmailChanged = (e) => setEmail(e.target.value);
   const onPasswordChanged = (e) => setPassword(e.target.value);
@@ -50,7 +30,14 @@ const SignIn = () => {
       return setErrMsg("Password должен содержать минимум 8 знаков");
     }
     setErrMsg("");
-    mutate({ email, password });
+    try {
+      await signin({ email, password });
+      setEmail("");
+      setPassword("");
+      navigate("/user")
+    } catch (err) {
+      console.log("Error", err)
+    }
   };
 
   const content = (

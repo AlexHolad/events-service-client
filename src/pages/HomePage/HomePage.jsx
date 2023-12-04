@@ -4,14 +4,8 @@ import { useEffect } from "react";
 // REACT ROUTER
 import { Link } from "react-router-dom";
 
-
-// REACT QUERY FUNCTIONALITY
-import { useQuery } from "@tanstack/react-query";
-// DATA FROM API
-import { getEvents } from "../../app/api";
-
 // DATA FROM STORE
-// import {useEvents, useEventActions} from "../../app/store"
+import {useEvents, useEventActions} from "../../app/store"
 
 // COMPONENTS
 import {EventCarousel} from "../../components/Carousel.component/Carousel";
@@ -28,31 +22,22 @@ export default function HomePage() {
     "настольные игры",
   ];
 
+  const {getEvents} = useEventActions()
 
-  const {data, isLoading, isError} = useQuery({
-    queryKey: ["events"],
-    queryFn: getEvents,
-  })
-  // const {getEvents} = useEventActions()
-
-  // useEffect(() => {
-  //   getEvents()
-  //  },[getEvents]);
+  useEffect(() => {
+    getEvents()
+   },[getEvents]);
  
-  // const events = useEvents()
-
-  if(isLoading) return <h1>Loading</h1>
-  if(isError) return <h1>{JSON.stringify(error)}</h1>
+  const events = useEvents()
 
   return (
     <div className="homepage__container gen__container">
       {categories.map((category) => (
         <div key={category}>
           <Link to={`/events/category/${category}`} className="homepage__category__headline">{category}</Link>
-          <EventCarousel events={data.data} category={category}/>
+          <EventCarousel events={events} category={category}/>
         </div>
       ))}
-
     </div>
   );
 }

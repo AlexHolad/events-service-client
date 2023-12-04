@@ -32,7 +32,7 @@ function Event() {
               {moment(event.date).format("dddd")}, 
             </p>
             <p className="eventpage__day">{moment(event.date).format("LL")}</p>
-            <p className="eventpage__time">{moment(event.date).format("HH:mm")}</p>
+            <p className="eventpage__time">{moment.utc(event.date).format("HH:mm")}</p>
           </div>
           <h2 className="eventpage__title truncate">{event.title}</h2>
           <div className="event__item">

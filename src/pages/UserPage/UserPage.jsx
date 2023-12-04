@@ -6,14 +6,7 @@ import Spinner from "../../components/Spinner.component/Spinner";
 import moment from "moment";
 import "moment/dist/locale/ru";
 
-// SERVER STATE
-import { useQuery } from "@tanstack/react-query";
-import { useFetchUserEvents, fetchUserEvents} from "../../app/api";
-
-// CLIENT STATE
 import { useUserEvents, useEventActions, useToken } from "../../app/store";
-
-
 import Button from "../../components/Button.component/Button";
 
 import "./UserPage.css";
@@ -57,16 +50,12 @@ function UserPage() {
   const { deleteEvent, getUserEvents } = useEventActions();
   const token = useToken();
 
-  // const { data, isLoading, error } = useFetchUserEvents();
+  useEffect(() => {
+    if (token !== null) {
+      getUserEvents();
+    }
+  }, [token, getUserEvents]);
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['user-events'],
-    queryFn: () => fetchUserEvents,
-    retry: false,
-    onSuccess: (data) => {
-      console.log('data',data)}
-})
-  
   useEffect(() => {
     moment.updateLocale("ru");
   }, []);
@@ -78,38 +67,34 @@ function UserPage() {
     navigate(`/events/edit/${eventId}`);
   };
 
-  // const sortedEvents = useMemo(() => {
-  //   const sortedEvents = data.slice();
-  //   // Sort posts in descending chronological order
-  //   sortedEvents.sort((a, b) => a.date.localeCompare(b.date));
-  //   return sortedEvents;
-  // }, [data]);
+  const sortedEvents = useMemo(() => {
+    const sortedEvents = events.slice();
+    // Sort posts in descending chronological order
+    sortedEvents.sort((a, b) => a.date.localeCompare(b.date));
+    return sortedEvents;
+  }, [events]);
 
   let content;
 
-  // if (events.length) {
-  //   content = sortedEvents.map((event) => (
-  //     <EventExcerpt
-  //       key={event._id}
-  //       event={event}
-  //       deleteEvent={deleteEvent}
-  //       goToEditPage={goToEditPage}
-  //     />
-  //   ));
-  // } else {
-  //   content = <div>{"No user events now"}</div>;
-  // }
+  if (events.length) {
+    content = sortedEvents.map((event) => (
+      <EventExcerpt
+        key={event._id}
+        event={event}
+        deleteEvent={deleteEvent}
+        goToEditPage={goToEditPage}
+      />
+    ));
+  } else {
+    content = <div>{"No user events now"}</div>;
+  }
 
-  // return (
-  //   <div className="userpage__container gen__container">
-  //     <Button action={goToAdding}>Add new Event</Button>
-  //     <div className="userpage__events__container">{content}</div>
-  //   </div>
-  // );
-  if(isLoading) return <div>Loading...</div>;
-  if(error) return <div>Something went wrong</div>;
-
-  return <div><Button action={goToAdding}>Add new Event</Button><p>{Array.isArray(data).toString()}</p></div>;
+  return (
+    <div className="userpage__container gen__container">
+      <Button action={goToAdding}>Add new Event</Button>
+      <div className="userpage__events__container">{content}</div>
+    </div>
+  );
 }
 
 export default UserPage;
