@@ -6,8 +6,6 @@ import moment from "moment";
 // SHOW HTML STRING TO JSX
 import parse from 'html-react-parser';
 
-import Spinner from "../../components/Spinner.component/Spinner";
-
 import "./Event.css";
 
 import { useEvent, useEventActions } from "../../app/store";

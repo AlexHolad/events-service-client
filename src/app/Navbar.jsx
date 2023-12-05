@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { useToken, useSearchField, useEventActions } from "./store";
+import { useToken, useEventActions } from "./store";
 
 import Search from "../components/Search.component/Search";
 import CalendarElement from "../components/Calendar.component/Calendar";

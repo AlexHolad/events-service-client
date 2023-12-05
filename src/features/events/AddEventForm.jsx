@@ -1,5 +1,5 @@
 // HOOKS
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // DATA DATABASE AND REDUX STORE ACTIONS
 import { useEventActions } from "../../app/store";
@@ -151,22 +151,11 @@ const AddEventForm = () => {
           <img id="uploadedimage" className="form__image" src=""></img>
         </div>
       </div>
-      {/* <div className="form__block">
-        <h4 htmlFor="dsec">Описание</h4>
-        <textarea
-          name="textarea"
-          rows="5"
-          cols="40"
-          className="form__textarea input"
-          value={description}
-          onChange={onDescriptionChanged}
-        />
-      </div> */}
       <div>
       <Editor
         apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
         value={description}
-        onEditorChange={(newValue, editor) => setDescription(newValue)}
+        onEditorChange={(newValue) => setDescription(newValue)}
         initialValue={''}
         init={{
           height: 500,
