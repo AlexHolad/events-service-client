@@ -4,3 +4,8 @@
     cursor: pointer;
     margin-bottom: 1rem;
 }
+
+.venuepage__venuelist {
+    display: flex;
+    flex-direction: column;
+}

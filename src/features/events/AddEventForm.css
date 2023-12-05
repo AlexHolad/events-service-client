@@ -83,6 +83,25 @@ label {
     padding: 0.5em;
 }
 
+
+/* TEXT EDITOR CLASSES */
+.wrapper-class {
+    padding: 1rem;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+  }
+  .editor-class {
+    background-color: #f7f7f7;
+    padding: 1rem;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+  }
+  .toolbar-class {
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+  }
+/* TEXT EDITOR CLASSES */
+
 .actions {
     width: 100%;
     margin: 1.5em 0;

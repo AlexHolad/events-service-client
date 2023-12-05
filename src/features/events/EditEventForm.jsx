@@ -100,9 +100,9 @@ const EditEventForm = () => {
           >
             <option value="">Выберите категорию</option>
             <option value="гастроли">Гастроли</option>
-            <option value="местные представления">Местные представления</option>
-            <option value="вечера">Вечера</option>
-            <option value="настольные игры">Настольные игры</option>
+            <option value="местные события">Местные события</option>
+            <option value="места для посещения">Места для посещения</option>
+            <option value="игры">Игры</option>
           </select>
         </div>
         <div className="form__item">

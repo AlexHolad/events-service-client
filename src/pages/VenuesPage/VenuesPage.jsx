@@ -17,7 +17,7 @@ export default function VenuesPage() {
   return (
     <div className='gen__container'>
         <h3 className='venuepage__headline'>Площадки</h3>
-        <ul>
+        <ul className='venuepage__venuelist'>
             {venues.map(venue => <li key={venue}><Link to={`/events/venue/${venue}`}>{venue}</Link></li>)}
         </ul>
     </div>

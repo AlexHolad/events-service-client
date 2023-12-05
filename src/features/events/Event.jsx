@@ -3,6 +3,9 @@ import { useParams } from "react-router-dom";
 
 import moment from "moment";
 
+// SHOW HTML STRING TO JSX
+import parse from 'html-react-parser';
+
 import Spinner from "../../components/Spinner.component/Spinner";
 
 import "./Event.css";
@@ -42,7 +45,7 @@ function Event() {
           </div>
           <div className="event__item">
           <h5 className="event__item__headline">Описание</h5>
-          <p className="eventpage__description">{event.description}</p>
+          {event.description && <p className="eventpage__description">{parse(event.description)}</p>} 
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 // HOOKS
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 // DATA DATABASE AND REDUX STORE ACTIONS
 import { useEventActions } from "../../app/store";
@@ -8,13 +8,15 @@ import { useEventActions } from "../../app/store";
 import Button from "../../components/Button.component/Button";
 import CloudinaryUploadWidget from "../../components/Cloudinary.component/Cloudinary";
 
+import { Editor } from '@tinymce/tinymce-react';
+
 // CSS
 import "./AddEventForm.css";
 
 const AddEventForm = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
-  
+
   // SUBCATEGORIES
   const subcategories = ['концерты', 'театр', 'детям']
   // CHECKBOXES FOR SUBCATEGORIES
@@ -34,36 +36,25 @@ const AddEventForm = () => {
   const onLocationChanged = (e) => setLocation(e.target.value);
   const onAddressChanged = (e) => setAddress(e.target.value);
   const onDateChanged = (e) => setDate(e.target.value);
-  const onDescriptionChanged = (e) => setDescription(e.target.value);
+
+
 
   const handleSend = () => {
+      const newEvent = addNewEvent({
+        title,
+        category,
+        subcategories: checkedState,
+        location,
+        address,
+        date,
+        img: imgUrl,
+        description
+      })
+      if(newEvent){
+        navigate('/user')
+      }
 
-
-    const newEvent = addNewEvent({
-      title,
-      category,
-      subcategories: checkedState,
-      location,
-      address,
-      date,
-      img: imgUrl,
-      description,
-    })
-    if(newEvent){
-      navigate('/user')
-    }
   };
-  const handleClear = () => {
-    setTitle("");
-    setCategory("");
-    setCheckedState([]);
-    setLocation("");
-    setAddress("");
-    setDate("");
-    setDescription("");
-    setImgUrl("");
-  };
-
   return (
     <div className="form__container">
       <div className="form__block form__block__first">
@@ -101,9 +92,9 @@ const AddEventForm = () => {
           >
             <option value="">Выберите категорию</option>
             <option value="гастроли">Гастроли</option>
-            <option value="местные представления">Местные представления</option>
-            <option value="вечера">Вечера</option>
-            <option value="настольные игры">Настольные игры</option>
+            <option value="местные события">Местные события</option>
+            <option value="места для посещения">Места для посещения</option>
+            <option value="игры">Игры</option>
           </select>
         </div>
         <div className="form__item">
@@ -160,7 +151,7 @@ const AddEventForm = () => {
           <img id="uploadedimage" className="form__image" src=""></img>
         </div>
       </div>
-      <div className="form__block">
+      {/* <div className="form__block">
         <h4 htmlFor="dsec">Описание</h4>
         <textarea
           name="textarea"
@@ -170,13 +161,34 @@ const AddEventForm = () => {
           value={description}
           onChange={onDescriptionChanged}
         />
+      </div> */}
+      <div>
+      <Editor
+        apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
+        value={description}
+        onEditorChange={(newValue, editor) => setDescription(newValue)}
+        initialValue={''}
+        init={{
+          height: 500,
+          menubar: false,
+          plugins: [
+            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+            'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+          ],
+          toolbar: 'undo redo | blocks | ' +
+            'bold italic forecolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ',
+          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        }}
+      />
+      </div>
+      <div>
+        {/* <div>{parse(convertedContent)}</div> */}
       </div>
       <div className="actions">
         <Button className="form__btn" action={handleSend}>
           {"Добавить"}
-        </Button>
-        <Button className="form__btn" action={handleClear}>
-          {"Очистить"}
         </Button>
       </div>
     </div>

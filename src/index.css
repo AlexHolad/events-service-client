@@ -67,3 +67,10 @@ ul {
   margin: 0;
   padding: 0;
 }
+
+/* TEXT EDITOR CLASSES */
+
+.public-DraftEditor-content .public-DraftStyleDefault-block {
+  margin: 0;
+}
+/* TEXT EDITOR CLASSES */

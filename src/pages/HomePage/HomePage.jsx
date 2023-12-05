@@ -17,9 +17,9 @@ import "./HomePage.css";
 export default function HomePage() {
   const categories = [
     "гастроли",
-    "местные представления",
-    "вечера",
-    "настольные игры",
+    "местные события",
+    "места для посещения",
+    "игры",
   ];
 
   const {getEvents} = useEventActions()
