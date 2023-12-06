@@ -12,16 +12,24 @@ import { useEvent, useEventActions } from "../../app/store";
 
 function Event() {
   const { eventId } = useParams();
-  const {getEventById} = useEventActions()
+  const {getEventById, setEvent} = useEventActions()
   const event = useEvent();
 
   useEffect(()=> {
     getEventById(eventId)
   },[eventId, getEventById])
 
+  useEffect(() => {
+
+    return () => {
+     // Component unmounted
+      setEvent({})
+    };
+}, [setEvent])
+
   let content;
 
-  if (event) {
+  if (event.description) {
     content = (
       <div className="eventpage__container gen__container">
         <div className="eventpage__img__container">
@@ -49,7 +57,7 @@ function Event() {
       </div>
     );
   } else {
-    content = <div>{"Something wrong"}</div>;
+    content = <div className="eventpage__container gen__container">{"Loading"}</div>;
   }
 
   return <div>{content}</div>;

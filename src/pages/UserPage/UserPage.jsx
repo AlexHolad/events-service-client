@@ -15,7 +15,7 @@ let EventExcerpt = ({ event, deleteEvent, goToEditPage }) => {
   const { _id } = event;
   return (
     <div className="userpage__event__container" key={event._id}>
-      <Link to={`/events/${event._id}`}>
+      <Link to={`/event/${event._id}`}>
         <div className="event__img__container">
           <img className="event__img" src={event.img} />
         </div>
@@ -27,7 +27,7 @@ let EventExcerpt = ({ event, deleteEvent, goToEditPage }) => {
             </p>
             <p className="event__month">{moment(event.date).format("MMM")}</p>
             <p className="event__day">{moment(event.date).format("D")},</p>
-            <p className="event__time">{moment(event.date).format("HH:mm")}</p>
+            <p className="event__time">{moment.utc(event.date).format("HH:mm")}</p>
           </div>
           <p className="event__location">{event.location}</p>
         </div>

@@ -1,8 +1,13 @@
 // HOOKS
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
+import moment from "moment";
+
 // DATA DATABASE AND REDUX STORE ACTIONS
-import { useEventActions } from "../../app/store";
+import { useEventActions, useEvent } from "../../app/store";
+
+import TextEditor from "../../components/Editor.component/Editor";
 
 // COMPONENTS
 import Button from "../../components/Button.component/Button";
@@ -12,29 +17,41 @@ import CloudinaryUploadWidget from "../../components/Cloudinary.component/Cloudi
 import "./EditEventForm.css";
 
 const EditEventForm = () => {
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
+  const { eventId } = useParams();
+  const { getEventById, editEvent, setEvent, findEventById} = useEventActions();
+
+  useEffect(() => {
+    getEventById(eventId)
+    return () => {
+     // Component unmounted
+      setEvent({})
+    };
+}, [setEvent, eventId, getEventById])
+
+  const event = findEventById(eventId)
+  console.log()
+
+
+  const [title, setTitle] = useState(event.title);
+  const [category, setCategory] = useState(event.category);
   // SUBCATEGORIES
-  const subcategories = ['концерты', 'театр', 'детям']
+  const subcategories = ["концерты", "театр", "детям"];
   // CHECKBOXES FOR SUBCATEGORIES
-  const [checkedState, setCheckedState] = useState([]);
-  
-  const [location, setLocation] = useState("");
-  const [address, setAddress] = useState("");
+  const [checkedState, setCheckedState] = useState(event.subcategories);
+
+  const [location, setLocation] = useState(event.location);
+  const [address, setAddress] = useState(event.address);
   const [date, setDate] = useState("");
   const [imgUrl, setImgUrl] = useState("");
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(event.description);
 
-  const { eventId } = useParams();
   const navigate = useNavigate();
-  const { editEvent } = useEventActions();
 
   const onTitleChanged = (e) => setTitle(e.target.value);
   const onCategoryChanged = (e) => setCategory(e.target.value);
   const onLocationChanged = (e) => setLocation(e.target.value);
   const onAddressChanged = (e) => setAddress(e.target.value);
   const onDateChanged = (e) => setDate(e.target.value);
-  const onDescriptionChanged = (e) => setDescription(e.target.value);
 
   const handleSave = () => {
     const editedEvent = editEvent({
@@ -52,19 +69,13 @@ const EditEventForm = () => {
       navigate("/user");
     }
   };
-  const handleClear = () => {
-    setTitle("");
-    setCategory("");
-    setCheckedState([])
-    setLocation("");
-    setAddress("");
-    setDate("");
-    setDescription("");
-    setImgUrl("");
-  };
 
-  return (
-    <div className="form__container">
+
+  let content;
+
+  if(event) {
+    content = (
+      <div className="form__container">
       <div className="form__block form__block__first">
         <div className="form__item">
           <h4 htmlFor="title">Название</h4>
@@ -80,6 +91,7 @@ const EditEventForm = () => {
         </div>
         <div className="form__item">
           <h4 htmlFor="data">Дата и время</h4>
+          <p>{moment.utc(event.date).format("L")}{` `}{ moment.utc(event.date).format("LT")}</p>
           <input
             className="input"
             type="datetime-local"
@@ -108,27 +120,33 @@ const EditEventForm = () => {
         <div className="form__item">
           <h4 htmlFor="">Также показывать в:</h4>
           <ul className="subcategories-list">
-        {subcategories.map((subcategory, index) => {
-          return (
-            <li key={index}>
-              <div className="subcategories-list-item">
-                  <input
-                    type="checkbox"
-                    name={subcategory}
-                    value={subcategory}
-                    checked={checkedState.includes(subcategory)}
-                    onChange={(e) => {
-                      e.target.checked
-                        ? setCheckedState([...checkedState, e.target.value])
-                        : setCheckedState([...checkedState].filter((subcategory) => subcategory !== e.target.value));
-                    }}
-                  />
-                  <label htmlFor={`custom-checkbox-${index}`}>{subcategory}</label>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+            {subcategories.map((subcategory, index) => {
+              return (
+                <li key={index}>
+                  <div className="subcategories-list-item">
+                    <input
+                      type="checkbox"
+                      name={subcategory}
+                      value={subcategory}
+                      checked={checkedState.includes(subcategory)}
+                      onChange={(e) => {
+                        e.target.checked
+                          ? setCheckedState([...checkedState, e.target.value])
+                          : setCheckedState(
+                              [...checkedState].filter(
+                                (subcategory) => subcategory !== e.target.value
+                              )
+                            );
+                      }}
+                    />
+                    <label htmlFor={`custom-checkbox-${index}`}>
+                      {subcategory}
+                    </label>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         </div>
         <div className="form__item">
           <h4 htmlFor="location">Площадка</h4>
@@ -154,32 +172,28 @@ const EditEventForm = () => {
         </div>
       </div>
       <div className="form__block form__block__second">
+      <h4 htmlFor="img">Изображение</h4>
         <div className="form__item">
-          <button htmlFor="img" className="button">Загрузить изображение</button>
           <CloudinaryUploadWidget setImgUrl={setImgUrl} />
-          <img id="uploadedimage" className="form__image" src=""></img>
+          <img id="uploadedimage" className="form__image" src={event.img}></img>
         </div>
       </div>
       <div className="form__block">
         <h4 htmlFor="dsec">Описание</h4>
-        <textarea
-          name="textarea"
-          rows="5"
-          cols="40"
-          className="form__textarea input"
-          value={description}
-          onChange={onDescriptionChanged}
-        />
+        <TextEditor description={description} setDescription={setDescription} />
       </div>
       <div className="actions">
         <Button className="form__btn" action={handleSave}>
           {"Сохранить"}
         </Button>
-        <Button className="form__btn" action={handleClear}>
-          {"Очистить"}
-        </Button>
       </div>
     </div>
+    )
+  } else {
+    content = <div className="gen__container">{"Loading"}</div>;
+  }
+  return (
+    content
   );
 };
 

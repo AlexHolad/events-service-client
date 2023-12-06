@@ -213,12 +213,18 @@ const useEventStore = create((set, get) => ({
       const response = await axios.get(`${baseURL}/event`, {
         params: { eventId },
       });
-      console.log(response.data);
+      console.log("Event gotten", response.data);
       const { data } = response;
       set({ event: data });
     },
+    findEventById: (eventId) => {
+      return get().events.find((event)=> event._id === eventId)
+    },
     setDate: (date) => {
       set({ date });
+    },
+    setEvent: (event) => {
+      set({ event });
     },
     setCategory: (category) => {
       set({ category });
