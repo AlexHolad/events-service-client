@@ -168,7 +168,8 @@ const AddEventForm = () => {
           toolbar: 'undo redo | blocks link | ' +
             'bold italic | alignleft aligncenter ' +
             'alignright alignjustify | bullist numlist outdent indent | ',
-          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+          relative_urls : false,
         }}
       />
       </div>

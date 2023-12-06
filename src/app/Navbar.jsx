@@ -111,7 +111,6 @@ export const Navbar = () => {
             <li onClick={() => filterByCategory("все")} className="nav__item">
               Все
             </li>
-            <Link to={'/venues'}><li className="nav__item">Площадки</li></Link>
             <li
               onClick={() => filterBySubCategory("концерты")}
               className="nav__item"
@@ -124,6 +123,7 @@ export const Navbar = () => {
             <li onClick={() => filterBySubCategory("детям")} className="nav__item">
               Детям
             </li>
+            <Link to={'/venues'}><li className="nav__item">Площадки</li></Link>
           </ul>
         </div>
       </nav>
