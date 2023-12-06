@@ -158,6 +158,7 @@ const AddEventForm = () => {
         onEditorChange={(newValue) => setDescription(newValue)}
         initialValue={''}
         init={{
+          language: 'ru',
           height: 500,
           menubar: true,
           plugins: [

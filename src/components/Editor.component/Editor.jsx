@@ -10,6 +10,7 @@ export default function TextEditor({description, setDescription}) {
         value={description}
         onEditorChange={(newValue) => setDescription(newValue)}
         init={{
+          language: 'ru',
           height: 500,
           menubar: true,
           plugins: [
