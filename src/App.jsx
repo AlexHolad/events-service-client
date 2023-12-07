@@ -8,7 +8,10 @@ import { useEventActions} from "./app/store";
 import Layout from "./Layout";
 
 import HomePage from "./pages/HomePage/HomePage";
-import Register from "./features/auth/Register";
+import Impressum from "./pages/Impressum/Impressum"
+import Datenschutz from "./pages/Datenschutz/Datenschutz";
+
+// import Register from "./features/auth/Register";
 import NoMatch  from "./pages/NoMatch/NoMatch";
 import AddEventForm from "./features/events/AddEventForm";
 import Event from "./features/events/Event";
@@ -27,9 +30,13 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          {/* USER FUNC */}
+          {/* HOMEPAGE */}
           <Route index element={<HomePage />} />/
+          {/* GENERAL PAGES */}
           <Route path="about" element={<h1>About</h1>} />
+          <Route path="datenschutz" element={<Datenschutz/>} />
+          <Route path="impressum" element={<Impressum/>} />
+
           <Route path="venues" element={<VenuesPage/>} />
          
           {/* SHOW EVENTS BY VENUE/CATEGORY/DATE */}
