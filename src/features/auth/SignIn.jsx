@@ -69,13 +69,13 @@ const SignIn = () => {
           required
         />
       </div>
-
+{/* 
       <p className="signin__p">
         <span>Нет Аккаунта?</span>{" "}
         <Link to="/register" className="signin__link">
           Создать
         </Link>
-      </p>
+      </p> */}
       <div className="signinform__actions">
         <button className="form__btn button" onClick={handleSend}>
           {"Войти"}

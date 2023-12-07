@@ -43,7 +43,7 @@ function App() {
           <Route path="event/:eventId" element={<Event />} />
 
           {/* REGISTER SIGNIN */}
-          <Route path="register" element={<Register/>} />
+          {/* <Route path="register" element={<Register/>} /> */}
           <Route path="signin" element={<SignIn/>} />
 
           {/* USER ROLE 'ORG' CAN REGISTER ADD EDIT AND DELETE THEIR EVENTS*/}
