@@ -1,43 +1,57 @@
 .footer {
-    background-color: #FEFEFE;
-    margin: 5rem 0 2rem 0;
+  background-color: #fefefe;
+  margin: 5rem 0 2rem 0;
+}
+
+.footer__email {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  color: #f0a500;
 }
 
 .footer__social__container {
-    display: flex; 
-    gap: 2rem;
-    justify-content: center;
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
 }
 
-.footer__social__container li{
-    cursor: pointer;
+.footer__social__container li {
+  cursor: pointer;
 }
 
 .icon8__link {
-    display: flex;
-    font-size: 0.7rem;
-    margin-left: auto;
-    justify-content: center;
-    gap: 0.3rem;
-    margin: 0.3rem 0 1rem 0;
+  display: flex;
+  font-size: 0.7rem;
+  margin-left: auto;
+  justify-content: center;
+  gap: 0.3rem;
+  margin: 0.3rem 0 1rem 0;
 }
 
-.icon8__link a{
-    text-decoration: underline;
+.icon8__link a {
+  text-decoration: underline;
 }
 
 .footer__rechtl__info__container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 2rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
 
 .footer__rechtl__info__container li {
-    font-size: 2rem;
-    cursor: pointer;
+  font-size: 2rem;
+  cursor: pointer;
 }
 
-.footer__rechtl__info__container li a p{
-    font-size: 1rem;
+.footer__rechtl__info__container li a p {
+  font-size: 1rem;
+}
+
+@media (min-width: 700px) {
+  .footer__email {
+    justify-content: flex-end;
+  }
 }

@@ -20,7 +20,7 @@ export default function Search() {
     <div className="search__container">
       <input className='search'
           type="text"
-          placeholder="Search here"
+          placeholder="Введите название ивента"
           value={searchField}
           onChange={handleChange}
     />

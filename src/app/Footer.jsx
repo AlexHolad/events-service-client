@@ -17,6 +17,7 @@ export default function Footer() {
           <li><Link to="datenschutz"><p className="footer__rechtl__info__header">Datenschutz</p></Link></li>
           <li><Link to="impressum"><p className="footer__rechtl__info__header">Impressum</p></Link></li>
         </ul>
+        <p className="footer__email">svoi.berlin@gmail.com</p>
     </div>
     </div>
   )

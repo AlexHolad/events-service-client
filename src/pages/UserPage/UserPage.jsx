@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import Spinner from "../../components/Spinner.component/Spinner";
@@ -6,12 +6,14 @@ import Spinner from "../../components/Spinner.component/Spinner";
 import moment from "moment";
 import "moment/dist/locale/ru";
 
-import { useUserEvents, useEventActions, useToken } from "../../app/store";
+import { useUserEvents, useEventActions, useToken, useEventId } from "../../app/store";
+
+import Agree from "../../components/Agree.component/Agree";
 import Button from "../../components/Button.component/Button";
 
 import "./UserPage.css";
 
-let EventExcerpt = ({ event, deleteEvent, goToEditPage }) => {
+let EventExcerpt = ({ event, goToEditPage, setEventId}) => {
   const { _id } = event;
   return (
     <div className="userpage__event__container" key={event._id}>
@@ -33,11 +35,11 @@ let EventExcerpt = ({ event, deleteEvent, goToEditPage }) => {
         </div>
       </Link>
       <div className="userpage__event__buttons__container">
-        <button className="button" onClick={() => deleteEvent(_id)}>
-          Удалить
-        </button>
         <button className="button" onClick={() => goToEditPage(_id)}>
           Изменить
+        </button>
+        <button className="button" onClick={()=> setEventId(_id)}>
+          Удалить
         </button>
       </div>
     </div>
@@ -47,8 +49,9 @@ let EventExcerpt = ({ event, deleteEvent, goToEditPage }) => {
 function UserPage() {
   const events = useUserEvents();
   const navigate = useNavigate();
-  const { deleteEvent, getUserEvents } = useEventActions();
+  const { deleteEvent, getUserEvents, setEventId } = useEventActions();
   const token = useToken();
+  const eventId = useEventId()
 
   useEffect(() => {
     if (token !== null) {
@@ -59,6 +62,12 @@ function UserPage() {
   useEffect(() => {
     moment.updateLocale("ru");
   }, []);
+
+
+  const deletEventAndClearId = (eventId) => {
+    deleteEvent(eventId)
+    setEventId("")
+  }
 
   const goToAdding = () => {
     navigate("/events/add");
@@ -83,6 +92,7 @@ function UserPage() {
         event={event}
         deleteEvent={deleteEvent}
         goToEditPage={goToEditPage}
+        setEventId={setEventId}
       />
     ));
   } else {
@@ -93,6 +103,9 @@ function UserPage() {
     <div className="userpage__container gen__container">
       <Button action={goToAdding}>Add new Event</Button>
       <div className="userpage__events__container">{content}</div>
+      <Agree 
+        doaction={deletEventAndClearId} cancel={setEventId} cancelValue={""} thequestion={"Вы действительно хотите удалить?"} theaction__param={eventId} thebtn1text={"Отмена"} thebtn2text={"Удалить"}
+        />
     </div>
   );
 }

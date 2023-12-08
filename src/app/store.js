@@ -15,6 +15,7 @@ const useEventStore = create((set, get) => ({
   searchField: "",
   accessToken: null,
   venues: [],
+  eventId: "",
   // ⬇️ separate "namespace" for actions
   actions: {
     // AUTH REQUESTS
@@ -242,6 +243,10 @@ const useEventStore = create((set, get) => ({
       });
       set({venues})
     },
+    setEventId: (eventId) => {
+      console.log(eventId)
+      set({ eventId });
+    },
   },
 }));
 
@@ -253,6 +258,7 @@ export const useDate = () => useEventStore((state) => state.date);
 export const useCategory = () => useEventStore((state) => state.category);
 export const useSearchField = () => useEventStore((state) => state.searchField);
 export const useVenues = () => useEventStore((state) => state.venues);
+export const useEventId = () => useEventStore((state) => state.eventId);
 
 // 🎉 one selector for all our actions
 export const useEventActions = () => useEventStore((state) => state.actions);
