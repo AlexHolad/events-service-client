@@ -237,10 +237,12 @@ const useEventStore = create((set, get) => ({
       const events = get().events;
       let venues = [];
       events.forEach((event) => {
+        console.log(venues)
         if (!venues.includes(event.location)) {
           venues.push(event.location);
         }
       });
+      venues = venues.sort()
       set({venues})
     },
     setEventId: (eventId) => {
