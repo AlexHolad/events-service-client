@@ -23,14 +23,14 @@ let EventExcerpt = ({ event, goToEditPage, setEventId}) => {
         </div>
         <div className="event__info">
           <h2 className="event__title truncate">{event.title}</h2>
-          <div className="event__date__container">
+          {(event.category !== 'места для посещения' && event.category !== 'игры') && <div className="event__date__container">
             <p className="event__weekday">
               {moment(event.date).format("ddd")},
             </p>
             <p className="event__month">{moment(event.date).format("MMM")}</p>
             <p className="event__day">{moment(event.date).format("D")},</p>
             <p className="event__time">{moment.utc(event.date).format("HH:mm")}</p>
-          </div>
+          </div>}
           <p className="event__location">{event.location}</p>
         </div>
       </Link>
@@ -79,7 +79,19 @@ function UserPage() {
   const sortedEvents = useMemo(() => {
     const sortedEvents = events.slice();
     // Sort posts in descending chronological order
-    sortedEvents.sort((a, b) => a.date.localeCompare(b.date));
+    sortedEvents.sort((a, b) => {
+      if (!a.date) {
+         // Change this values if you want to put `null` values at the end of the array
+         return +1;
+      }
+    
+      if (!b.date) {
+         // Change this values if you want to put `null` values at the end of the array
+         return -1;
+      }
+    
+      return a.date.localeCompare(b.date);
+    });
     return sortedEvents;
   }, [events]);
 

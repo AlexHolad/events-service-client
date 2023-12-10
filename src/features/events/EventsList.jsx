@@ -18,8 +18,10 @@ let EventExcerpt = ({ event }) => {
       <img className="event__img" src={event.img} />
     </div>
     <div className="event__info">
+      <div className="eventcard__title__container">
       <h2 className="event__title truncate">{event.title}</h2>
-      <div className="event__date__container">
+      </div>
+      {(event.category !== 'места для посещения' && event.category !== 'игры') && <div className="event__date__container">
         <p className="event__weekday">
           {moment(event.date).format("ddd")},
         </p>
@@ -30,7 +32,7 @@ let EventExcerpt = ({ event }) => {
         <p className="event__time">
           {moment.utc(event.date).format("HH:mm")}
         </p>
-      </div>
+      </div>}
       <p className="event__location">{event.location}</p>
     </div>
   </Link>
@@ -67,7 +69,19 @@ export const EventsList = () => {
   const sortedEvents = useMemo(() => {
     const sortedEvents = [...events]
     // Sort posts in inscending chronological order
-    sortedEvents.sort((a, b) => a.date.localeCompare(b.date));
+    sortedEvents.sort((a, b) => {
+      if (!a.date) {
+         // Change this values if you want to put `null` values at the end of the array
+         return +1;
+      }
+    
+      if (!b.date) {
+         // Change this values if you want to put `null` values at the end of the array
+         return -1;
+      }
+    
+      return a.date.localeCompare(b.date);
+    });
     return sortedEvents;
   }, [events]);
  

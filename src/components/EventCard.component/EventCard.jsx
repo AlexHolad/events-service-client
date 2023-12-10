@@ -12,8 +12,10 @@ export default function EventCard({event}) {
         <img className="eventcard__img" src={event.img} />
       </div>
       <div className="eventcard__info">
-        <h2 className="eventcard__title truncate">{event.title}</h2>
-        <div className="eventcard__date__container">
+      <div className="eventcard__title__container">
+      <h2 className="eventcard__title truncate">{event.title}</h2>
+      </div>
+        {(event.category !== 'места для посещения' && event.category !== 'игры') && <div className="eventcard__date__container">
           <p className="eventcard__weekday">
             {moment(event.date).format("ddd")},
           </p>
@@ -24,7 +26,7 @@ export default function EventCard({event}) {
           <p className="eventcard__time">
             {moment.utc(event.date).format("HH:mm")}
           </p>
-        </div>
+        </div>}
         <p className="eventcard__location">{event.location}</p>
       </div>
     </Link>
