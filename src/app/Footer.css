@@ -11,10 +11,17 @@
   color: #f0a500;
 }
 
+.footer__social__headline {
+  font-size: 1rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+
 .footer__social__container {
   display: flex;
   gap: 2rem;
   justify-content: center;
+  margin: 1.2rem 0 0 0;
 }
 
 .footer__social__container li {

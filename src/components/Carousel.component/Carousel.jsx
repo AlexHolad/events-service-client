@@ -53,8 +53,8 @@ return sortedEvents;
 const filteredEvents = useMemo(() => {
   let filteredEvents = [...sortedEvents]
   // Sort posts in inscending chronological order
-  filteredEvents = filteredEvents.filter((event) => event.category === category);
-  return filteredEvents;
+  const finalList = filteredEvents.filter((event) => event.category === category);
+  return finalList;
   }, [sortedEvents]);
   
 
@@ -77,7 +77,7 @@ return (
   dotListClass="custom-dot-list-style"
   itemClass="carousel-item-padding-40-px"
 >
-{filteredEvents.map(event => <EventCard key={event._id} event={event}/>)}
+{filteredEvents && filteredEvents.map(event => <EventCard key={event._id} event={event}/>)}
 </Carousel>
 
 )}

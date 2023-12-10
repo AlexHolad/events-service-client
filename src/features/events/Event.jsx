@@ -36,13 +36,13 @@ function Event() {
           <img className="eventpage__img" src={event.img} />
         </div>
         <div className="eventpage__info">
-        <div className="eventpage__date__container">
+        { event.date && <div className="eventpage__date__container">
             <p className="eventpage__weekday">
               {moment(event.date).format("dddd")}, 
             </p>
             <p className="eventpage__day">{moment(event.date).format("LL")}</p>
             <p className="eventpage__time">{moment.utc(event.date).format("HH:mm")}</p>
-          </div>
+          </div>}
           <h2 className="eventpage__title truncate">{event.title}</h2>
           <div className="event__item">
           <h5 className="event__item__headline">Площадка</h5>
