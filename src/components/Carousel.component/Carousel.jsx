@@ -67,7 +67,7 @@ return (
   responsive={responsive}
   className='carousel__container'
   ssr={true} // means to render carousel on server-side.
-  infinite={true}
+  infinite={false}
   autoPlaySpeed={1000}
   keyBoardControl={true}
   customTransition="all .5"
@@ -76,6 +76,7 @@ return (
   removeArrowOnDeviceType={["tablet", "mobile"]}
   dotListClass="custom-dot-list-style"
   itemClass="carousel-item-padding-40-px"
+  slidesToSlide={5}
 >
 {filteredEvents && filteredEvents.map(event => <EventCard key={event._id} event={event}/>)}
 </Carousel>
