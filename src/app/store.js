@@ -214,9 +214,9 @@ const useEventStore = create((set, get) => ({
       const response = await axios.get(`${baseURL}/event`, {
         params: { eventId },
       });
-      console.log("Event gotten", response.data);
       const { data } = response;
       set({ event: data });
+      return data
     },
     findEventById: (eventId) => {
       return get().events.find((event)=> event._id === eventId)

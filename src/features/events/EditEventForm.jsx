@@ -18,32 +18,48 @@ import "./EditEventForm.css";
 
 const EditEventForm = () => {
   const { eventId } = useParams();
-  const { getEventById, editEvent, setEvent, findEventById} = useEventActions();
+  const { setEvent, getEventById, editEvent, findEventById } =
+    useEventActions();
+  const [isLoading, setIsLoading] = useState(true);
+  const [event, setLocalEvent] = useState({});
 
   useEffect(() => {
     getEventById(eventId)
+      .then((data) => {
+        setLocalEvent(data);
+        return data
+      })
+      .then((data) => {
+        if (data) {
+          setCheckedState(data.subcategories);
+        }
+        setTitle(data.title);
+        setCategory(data.category);
+        setLocation(data.location);
+        setAddress(data.address);
+        if (data.date) setDate(data.date);
+        setImgUrl(data.img);
+        setDescription(data.description);
+        setIsLoading(false)
+      });
     return () => {
-     // Component unmounted
-      setEvent({})
+      // Component unmounted
+      setEvent({});
     };
-}, [setEvent, eventId, getEventById])
+  }, [eventId, findEventById, getEventById, setEvent]);
 
-  const event = findEventById(eventId)
-  console.log()
-
-
-  const [title, setTitle] = useState(event.title);
-  const [category, setCategory] = useState(event.category);
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
   // SUBCATEGORIES
   const subcategories = ["концерты", "театр", "детям"];
   // CHECKBOXES FOR SUBCATEGORIES
-  const [checkedState, setCheckedState] = useState(event.subcategories);
+  const [checkedState, setCheckedState] = useState([]);
 
-  const [location, setLocation] = useState(event.location);
-  const [address, setAddress] = useState(event.address);
-  const [date, setDate] = useState("");
+  const [location, setLocation] = useState("");
+  const [address, setAddress] = useState("");
+  const [date, setDate] = useState(new Date());
   const [imgUrl, setImgUrl] = useState("");
-  const [description, setDescription] = useState(event.description);
+  const [description, setDescription] = useState("");
 
   const navigate = useNavigate();
 
@@ -70,12 +86,10 @@ const EditEventForm = () => {
     }
   };
 
+  if (isLoading) return <div className="gen__container">{"Loading. . ."}</div>;
 
-  let content;
-
-  if(event) {
-    content = (
-      <div className="form__container">
+  return (
+    <div className="form__container">
       <div className="form__block form__block__first">
         <div className="form__item">
           <h4 htmlFor="title">Название</h4>
@@ -91,7 +105,11 @@ const EditEventForm = () => {
         </div>
         <div className="form__item">
           <h4 htmlFor="data">Дата и время</h4>
-          <p>{moment.utc(event.date).format("L")}{` `}{ moment.utc(event.date).format("LT")}</p>
+          <p>
+            {moment.utc(event.date).format("L")}
+            {` `}
+            {moment.utc(event.date).format("LT")}
+          </p>
           <input
             className="input"
             type="datetime-local"
@@ -172,10 +190,10 @@ const EditEventForm = () => {
         </div>
       </div>
       <div className="form__block form__block__second">
-      <h4 htmlFor="img">Изображение</h4>
+        <h4 htmlFor="img">Изображение</h4>
         <div className="form__item">
           <CloudinaryUploadWidget setImgUrl={setImgUrl} />
-          <img id="uploadedimage" className="form__image" src={event.img}></img>
+          <img id="uploadedimage" className="form__image" src={imgUrl}></img>
         </div>
       </div>
       <div className="form__block">
@@ -188,12 +206,6 @@ const EditEventForm = () => {
         </Button>
       </div>
     </div>
-    )
-  } else {
-    content = <div className="gen__container">{"Loading"}</div>;
-  }
-  return (
-    content
   );
 };
 
