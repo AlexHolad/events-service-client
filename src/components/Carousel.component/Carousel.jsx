@@ -72,7 +72,6 @@ return (
   containerClass="carousel-container"
   removeArrowOnDeviceType={["tablet", "mobile"]}
   dotListClass="custom-dot-list-style"
-  itemClass="carousel-item-padding-40-px"
   slidesToSlide={5}
 >
 {filteredEvents && filteredEvents.map(event => <EventCard key={event._id} event={event}/>)}

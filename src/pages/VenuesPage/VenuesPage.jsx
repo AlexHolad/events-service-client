@@ -22,7 +22,7 @@ export default function VenuesPage() {
         {venues.map((venue) => (
           <li className='venues__venueblock' key={venue.title}>
             <a href={venue.maplink} target="_blank" rel="noreferrer">
-            <img width="25" height="25" src="https://img.icons8.com/ios/50/marker--v1.png" alt="marker--v1"/>
+            <img width="25" height="25" src="https://img.icons8.com/ios/f0a500/marker--v1.png" alt="marker--v1"/>
             </a>
             <Link to={`/events/venue/${venue.location}`}>{venue.location}</Link>
           </li>

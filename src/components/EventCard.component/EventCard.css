@@ -5,8 +5,8 @@
     transition-duration: 1s;
     background-color: white;
     box-shadow: rgba(157, 160, 194, 0.08) 0px 48px 80px 0px;
-    height: 92%;
-    margin: 1rem;
+    height: 96%;
+    margin: 0.5rem;
 }
   
   .eventcard__container:hover {
@@ -52,17 +52,10 @@
     color: var(--accent-color);
     font-weight: 500;
   }
-  
-  @media (min-width: 700px) {
-      .event__container {
-          max-width: 30%;
-          box-shadow: none;
-        }
+
+  .eventcard__time{
+    margin-left: 0.5rem;
+    text-shadow: 1px 1px #d8d8d8;
   }
-  
-  @media (min-width: 1100px) {
-      .event__container {
-          max-width: 23%;
-        }
-  }
+
   
