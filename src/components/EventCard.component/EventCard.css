@@ -53,15 +53,6 @@
     font-weight: 500;
   }
   
-  .event__day {
-  }
-  
-  .event__month {
-  }
-  
-  .event__time {
-  }
-  
   @media (min-width: 700px) {
       .event__container {
           max-width: 30%;
