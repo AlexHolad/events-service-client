@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
-// GOOGLE ANALYTICS
-import ReactGA from "react-ga";
+
 
 import "./App.css";
 
@@ -24,16 +23,9 @@ import EditEventForm from "./features/events/EditEventForm";
 import { EventsList } from "./features/events/EventsList";
 import VenuesPage from "./pages/VenuesPage/VenuesPage";
 
-const TRACKING_ID = import.meta.env.VITE_REACT_GA_ID; // OUR_TRACKING_ID
 
-ReactGA.initialize(TRACKING_ID, { debug: true });
 
 function App() {
-
-  useEffect(() => {
-
-    ReactGA.pageview(window.location.pathname + window.location.search)
-  }, []);
 
   const {refresh} = useEventActions()
   useEffect(()=> {
