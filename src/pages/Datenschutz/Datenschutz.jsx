@@ -1,8 +1,8 @@
-import React from "react";
+import "./Datenschutz.css"
 
 export default function Datenschutz() {
   return (
-    <div className="gen__container">
+    <div className="gen__container datenschutz">
       <h1>Datenschutz&shy;erkl&auml;rung</h1>
       <h2>1. Datenschutz auf einen Blick</h2>
       <h3>Allgemeine Hinweise</h3>{" "}
@@ -309,31 +309,31 @@ export default function Datenschutz() {
       </p>{" "}
       <ul>
         {" "}
-        <li>
+        <li><p>
           Wenn Sie die Richtigkeit Ihrer bei uns gespeicherten personenbezogenen
           Daten bestreiten, ben&ouml;tigen wir in der Regel Zeit, um dies zu
           &uuml;berpr&uuml;fen. F&uuml;r die Dauer der Pr&uuml;fung haben Sie
           das Recht, die Einschr&auml;nkung der Verarbeitung Ihrer
-          personenbezogenen Daten zu verlangen.
+          personenbezogenen Daten zu verlangen.</p>
         </li>{" "}
-        <li>
+        <li><p>
           Wenn die Verarbeitung Ihrer personenbezogenen Daten
           unrechtm&auml;&szlig;ig geschah/geschieht, k&ouml;nnen Sie statt der
-          L&ouml;schung die Einschr&auml;nkung der Datenverarbeitung verlangen.
+          L&ouml;schung die Einschr&auml;nkung der Datenverarbeitung verlangen.</p>
         </li>{" "}
-        <li>
+        <li><p>
           Wenn wir Ihre personenbezogenen Daten nicht mehr ben&ouml;tigen, Sie
           sie jedoch zur Aus&uuml;bung, Verteidigung oder Geltendmachung von
           Rechtsanspr&uuml;chen ben&ouml;tigen, haben Sie das Recht, statt der
           L&ouml;schung die Einschr&auml;nkung der Verarbeitung Ihrer
-          personenbezogenen Daten zu verlangen.
+          personenbezogenen Daten zu verlangen.</p>
         </li>{" "}
-        <li>
+        <li><p>
           Wenn Sie einen Widerspruch nach Art. 21 Abs. 1 DSGVO eingelegt haben,
           muss eine Abw&auml;gung zwischen Ihren und unseren Interessen
           vorgenommen werden. Solange noch nicht feststeht, wessen Interessen
           &uuml;berwiegen, haben Sie das Recht, die Einschr&auml;nkung der
-          Verarbeitung Ihrer personenbezogenen Daten zu verlangen.
+          Verarbeitung Ihrer personenbezogenen Daten zu verlangen.</p>
         </li>{" "}
       </ul>{" "}
       <p>
