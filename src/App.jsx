@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
-
-
 import "./App.css";
 
 import { useEventActions} from "./app/store";
@@ -26,11 +24,10 @@ import VenuesPage from "./pages/VenuesPage/VenuesPage";
 
 
 function App() {
-
   const {refresh} = useEventActions()
   useEffect(()=> {
     refresh()
-  })
+  }, [refresh])
   return (
     <>
       <Routes>
