@@ -72,11 +72,11 @@ const EditEventForm = () => {
   const handleSave = () => {
     const editedEvent = editEvent({
       _id: eventId,
-      title,
-      category,
+      title: title.trim(),
+      category: category.trim(),
       subcategories: checkedState,
-      location,
-      address,
+      location: location.trim(),
+      address: address.trim(),
       date,
       img: imgUrl,
       description,

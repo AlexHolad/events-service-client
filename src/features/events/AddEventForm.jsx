@@ -41,11 +41,11 @@ const AddEventForm = () => {
 
   const handleSend = () => {
       const newEvent = addNewEvent({
-        title,
-        category,
+        title: title.trim(),
+        category: category.trim(),
         subcategories: checkedState,
-        location,
-        address,
+        location: location.trim(),
+        address: address.trim(),
         date,
         img: imgUrl,
         description

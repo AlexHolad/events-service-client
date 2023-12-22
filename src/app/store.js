@@ -235,6 +235,7 @@ const useEventStore = create((set, get) => ({
     },
     getVenues: () => {
       const events = get().events;
+      console.log("Venues",events)
       let seen = new Set();
       let venues = events.filter(item => {
         let k = item.location;
@@ -243,8 +244,10 @@ const useEventStore = create((set, get) => ({
       venues = venues.sort(function(a, b) {
         return a.location.localeCompare(b.location);
      });
+     console.log(venues)
       venues.forEach((event) => event.maplink = `https://www.google.com/maps/search/?api=1&query=${encodeURI(event.location)} ${encodeURI(event.address)}`)
       set({venues})
+      console.log(venues)
     },
     setEventId: (eventId) => {
       console.log(eventId)

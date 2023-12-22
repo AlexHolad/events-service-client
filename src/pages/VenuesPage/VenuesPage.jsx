@@ -8,16 +8,20 @@ import { useVenues, useEventActions } from "../../app/store";
 import "./VenuesPage.css";
 
 export default function VenuesPage() {
-  const { getVenues } = useEventActions();
+  const { getVenues, getEvents } = useEventActions();
   useEffect(() => {
-    getVenues();
-  }, [getVenues]);
+    
+    getEvents().then(()=> getVenues())
+  }, [getVenues, getEvents]);
 
   const venues = useVenues();
 
   return (
     <div className="gen__container">
       <h3 className="venuepage__headline">Площадки</h3>
+      {/* <div className="subheadline">
+        <h5 className="adress">Адрес</h5>
+      </div> */}
       <ul className="venuepage__venuelist">
         {venues.map((venue) => (
           <li className='venues__venueblock' key={venue.title}>
