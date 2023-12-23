@@ -19,7 +19,7 @@
 .eventpage__title {
     text-transform: uppercase;
     color: #14213d;
-    
+    font-size: var(--fs-600);
 }
 .eventpage__date__container{
     display: flex;
