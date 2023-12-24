@@ -1,66 +1,71 @@
 .eventpage__container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-.eventpage__img__container{
-    margin: auto;
+.eventpage__img__container {
+  margin: auto;
 }
-.eventpage__img{
-    border-radius: 0 0 20px 20px;
+.eventpage__img {
+  border-radius: 0 0 20px 20px;
 }
-.eventpage__info{
-    margin: 1.5rem 0 1rem 0;
-    padding-left: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+.eventpage__info {
+  margin: 1.5rem 0 1rem 0;
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 .eventpage__title {
-    text-transform: uppercase;
-    color: #14213d;
-    font-size: var(--fs-600);
+  text-transform: uppercase;
+  color: #14213d;
+  font-size: var(--fs-600);
 }
-.eventpage__date__container{
-    display: flex;
-    gap: 0.5rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-    margin-bottom: var(--base-unit);
-    min-height: 24px;
-    font-size: 1rem;
-    line-height: 1.5rem;
-    color: var(--headline-color)
+.eventpage__date__container {
+  display: flex;
+  gap: 0.5rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  margin-bottom: var(--base-unit);
+  min-height: 24px;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: var(--headline-color);
 }
-.eventpage__weekday{
- text-transform: capitalize;
+.eventpage__weekday {
+  text-transform: capitalize;
 }
-.eventpage__day{
-
+.eventpage__day {
 }
-.eventpage__time{
-
+.eventpage__time {
 }
 
-.event__item{
-    margin: 1rem 0;
+.event__item {
+  margin: 1rem 0;
 }
 
-.event__item__headline{
-    text-transform: uppercase;
-    color:#14213d;
+.event__item__headline {
+  text-transform: uppercase;
+  color: #14213d;
 }
-.eventpage__location{
-    font-size: 1rem;
-    color:#14213d;
+.eventpage__location {
+  font-size: 1rem;
+  color: #14213d;
+}
+.eventpage__address {
+  font-size: 1rem;
+  color: #b9bbc0;
+}
+.eventpage__description {
+  text-align: justify;
+  font-size: 1rem;
+  color: #14213d;
+}
 
+.eventpage__description a {
+  text-decoration: underline;
 }
-.eventpage__address{
-    font-size: 1rem;
-    color:#b9bbc0;
-}
-.eventpage__description{
-    text-align: justify;
-    font-size: 1rem;
-    color:#14213d;
+
+.eventpage__description a:hover {
+  color: #8da220;
 }
