@@ -23,6 +23,7 @@
 }
 .eventpage__date__container {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   font-weight: 600;
   margin-bottom: 8px;
@@ -34,10 +35,6 @@
 }
 .eventpage__weekday {
   text-transform: capitalize;
-}
-.eventpage__day {
-}
-.eventpage__time {
 }
 
 .event__item {

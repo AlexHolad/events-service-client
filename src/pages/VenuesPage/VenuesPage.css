@@ -5,6 +5,11 @@
     margin-bottom: 1rem;
 }
 
+.subheadline {
+    display: flex;
+    gap: 1rem;
+}
+
 .venuepage__venuelist {
     display: flex;
     flex-direction: column;
@@ -12,5 +17,6 @@
 
 .venues__venueblock {
     display: flex;
-    gap: 1rem;
+    gap: 3rem;
+    margin-left: 2rem;
 }

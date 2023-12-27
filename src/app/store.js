@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
+import moment from 'moment'
 
 const mode = "PROD"
 
@@ -94,7 +95,8 @@ const useEventStore = create((set, get) => ({
     getEvents: async () => {
       const response = await axios.get(`${baseURL}/events`);
       const { data } = response;
-      set({ events: data });
+      const events = data.filter((event) => moment() < moment(event.date) || !event.date)
+      set({ events });
     },
 
     addNewEvent: async (initialEvent) => {

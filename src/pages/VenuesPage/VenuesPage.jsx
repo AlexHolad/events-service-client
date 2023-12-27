@@ -19,9 +19,10 @@ export default function VenuesPage() {
   return (
     <div className="gen__container">
       <h3 className="venuepage__headline">Площадки</h3>
-      {/* <div className="subheadline">
-        <h5 className="adress">Адрес</h5>
-      </div> */}
+      <div className="subheadline">
+        <h5 className="adress">На карте</h5>
+        <h5 className="adress">Название площадки</h5>
+      </div>
       <ul className="venuepage__venuelist">
         {venues.map((venue) => (
           <li className='venues__venueblock' key={venue.title}>
