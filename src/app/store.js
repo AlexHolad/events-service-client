@@ -95,7 +95,7 @@ const useEventStore = create((set, get) => ({
     getEvents: async () => {
       const response = await axios.get(`${baseURL}/events`);
       const { data } = response;
-      const events = data.filter((event) => moment() < moment(event.date) || !event.date)
+      const events = data.filter((event) => moment() < moment(event.date) || moment() < moment(event.dates[event.dates.length - 1]))
       set({ events });
     },
 
@@ -112,7 +112,6 @@ const useEventStore = create((set, get) => ({
           },
         });
         const { data } = response;
-        console.log(data);
       } catch (error) {
         if (error.response) {
           // The request was made and the server responded with a status code
@@ -126,12 +125,13 @@ const useEventStore = create((set, get) => ({
 
     editEvent: async (initialEvent) => {
       console.log("Editing Event started", initialEvent);
-      const response = await axios.put(`${baseURL}/events`, initialEvent, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${get().accessToken}`,
-        },
-      });
+        const response = await axios.put(`${baseURL}/events`, initialEvent, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${get().accessToken}`,
+          },
+        });
+        console.log(response.data)
       if (response) {
         const response = await axios.get(`${baseURL}/user/events`, {
           headers: {

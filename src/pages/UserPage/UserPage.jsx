@@ -22,15 +22,51 @@ let EventExcerpt = ({ event, goToEditPage, setEventId}) => {
           <img className="event__img" src={event.img} />
         </div>
         <div className="event__info">
-          <h2 className="event__title truncate">{event.title}</h2>
-          {(event.category !== 'места для посещения' && event.category !== 'игры') && <div className="event__date__container">
-            <p className="event__weekday">
-              {moment(event.date).format("ddd")},
-            </p>
-            <p className="event__month">{moment(event.date).format("MMM")}</p>
-            <p className="event__day">{moment(event.date).format("D")},</p>
-            <p className="event__time">{moment.utc(event.date).format("HH:mm")}</p>
-          </div>}
+        <div className="event__title__container">
+            <h2 className="event__title truncate">{event.title}</h2>
+          </div>
+          {event.category !== "места для посещения" &&
+            event.category !== "игры" && (
+              <div className="event__date__container">
+                <ul className="dateslist">
+                  {/* SHOW ONE DATE IF DATE EXIST */}
+                  {event.date && (
+                    <li className="event__date__container">
+                      <p className="event__weekday">
+                        {moment(event.date).format("ddd")},
+                      </p>
+                      <p className="event__month">
+                        {moment(event.date).format("MMM")}
+                      </p>
+                      <p className="event__day">
+                        {moment(event.date).format("D")},
+                      </p>
+                      <p className="event__time">
+                        {moment.utc(event.date).format("HH:mm")}
+                      </p>
+                    </li>
+                  )}
+                  {/* SHOW MANY DATES IF DATES ExIST */}
+                  {event.dates.length > 0 && event.dates.map((date, index)=> 
+                    <li key={index} className="event__date__container">
+                    <p className="event__weekday">
+                      {moment(date).format("ddd")},
+                    </p>
+                    <p className="event__month">
+                      {moment(date).format("MMM")}
+                    </p>
+                    <p className="event__day">
+                      {moment(date).format("D")},
+                    </p>
+                    <p className="event__time">
+                      {moment.utc(date).format("HH:mm")}
+                    </p>
+                  </li>
+                  )}
+                  {/* SHOW RANGELIST IF LIST EXIST */}
+                </ul>
+              </div>
+            )}
           <p className="event__location">{event.location}</p>
         </div>
       </Link>
@@ -57,7 +93,7 @@ function UserPage() {
     if (token !== null) {
       getUserEvents();
     }
-  }, [token, getUserEvents]);
+  }, [token, getUserEvents, events]);
 
   useEffect(() => {
     moment.updateLocale("ru");

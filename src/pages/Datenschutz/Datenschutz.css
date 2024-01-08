@@ -7,6 +7,8 @@
     font-size: 1rem;
 }
 
-.datenschutz h2, h3, h4, h5 {
-    margin-bottom: 1rem;
+.datenschutz {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
