@@ -56,7 +56,21 @@ const AddEventForm = () => {
 
   const addDate = () => {
     if (tempDate) {
-      setDates([...dates, moment.utc(tempDate).format()]);
+      const sortedDates = [...dates, moment.utc(tempDate).format()]
+      sortedDates.sort((a, b) => {
+        if (!a) {
+           // Change this values if you want to put `null` values at the end of the array
+           return +1;
+        }
+      
+        if (!b) {
+           // Change this values if you want to put `null` values at the end of the array
+           return -1;
+        }
+      
+        return a.localeCompare(b);
+      });
+      setDates(sortedDates);
       setTempDate("");
     }
   };

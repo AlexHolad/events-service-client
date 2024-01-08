@@ -15,6 +15,12 @@ function Event() {
   const { getEventById, setEvent } = useEventActions();
   const event = useEvent();
 
+  useEffect(()=> {
+    console.log(event.date)
+    console.log(event.dates)
+
+  }, [event.date, event.dates])
+
   useEffect(() => {
     getEventById(eventId);
   }, [eventId, getEventById]);
@@ -35,21 +41,6 @@ function Event() {
           <img className="eventpage__img" src={event.img} />
         </div>
         <div className="eventpage__info">
-          {/* SHOW ONE DATE IF DATE EXIST */}
-          {typeof event.date === Date && (
-            <div className="eventpage__date__container">
-              <p className="eventpage__weekday">
-                {moment(event.date).format("dddd")},
-              </p>
-              <p className="eventpage__day">
-                {moment(event.date).format("LL")}
-              </p>
-              <p className="eventpage__time">
-                {moment.utc(event.date).format("HH:mm")}
-              </p>
-            </div>
-          )}
-
           {event.category !== "места для посещения" &&
             event.category !== "игры" && (
               <div className="event__date__container">
@@ -79,7 +70,7 @@ function Event() {
                           {moment(date).format("LL")}
                         </p>
                         <p className="eventpage__weekday">
-                          {moment(date).format("dddd")},
+                          {moment(date).format("dddd")}
                         </p>
                       </li>
                     ))}
