@@ -2,7 +2,7 @@ import { create } from "zustand";
 import axios from "axios";
 import moment from 'moment'
 
-const mode = "PROD"
+const mode = "DEV"
 
 const baseURL = mode === "DEV" ? "http://localhost:5000": "https://events-service-api.onrender.com";
 axios.defaults.withCredentials = true;

@@ -41,12 +41,6 @@ const AddEventForm = () => {
   const navigate = useNavigate();
   const { addNewEvent } = useEventActions();
 
-  useEffect(()=> {
-    console.log("Is One Date: ", toggleDate)
-    console.log("Date: ", date)
-    console.log("Dates: ", dates)
-  }, [dates, date, toggleDate])
-
   const onTitleChanged = (e) => setTitle(e.target.value);
   const onCategoryChanged = (e) => setCategory(e.target.value);
   const onLocationChanged = (e) => setLocation(e.target.value);
