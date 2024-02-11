@@ -19,36 +19,50 @@ export default function EventCard({ event }) {
               <div className="eventcard__dates__container">
                 {event.date && (
                   <div className="eventcard__date__container">
-                    <p className="eventcard__weekday">
-                      {moment(event.date).format("ddd")}
+                    <p className="eventcard__day">
+                      {moment(event.date).format("D")}
                     </p>
                     <p className="eventcard__month">
                       {moment(event.date).format("MMM")}
                     </p>
-                    <p className="eventcard__day">
-                      {moment(event.date).format("D")}
-                    </p>
                     <p className="eventcard__time">
                       {moment.utc(event.date).format("HH:mm")}
+                    </p>
+                    <p className="eventcard__weekday">
+                      {moment(event.date).format("ddd")}
                     </p>
                   </div>
                 )}
                 {event.dates.length > 0 &&
                   event.dates.map((date, index) => 
-                    <div className="eventcard__date__container" key={index}>
-                      <p className="eventcard__weekday">
-                        {moment(date).format("ddd")}
-                      </p>
-                      <p className="eventcard__month">
-                        {moment(date).format("MMM")}
-                      </p>
-                      <p className="eventcard__day">
-                        {moment(date).format("D")}
-                      </p>
-                      <p className="eventcard__time">
-                        {moment.utc(date).format("HH:mm")}
-                      </p>
-                    </div>
+                
+                    !event.period ? (
+                      <div className="eventcard__date__container" key={index}>
+                        <p className="eventcard__day">
+                          {moment(date).format("D")}
+                        </p>
+                        <p className="eventcard__month">
+                          {moment(date).format("MMM")}
+                        </p>
+                        <p className="eventcard__time">
+                          {moment.utc(date).format("HH:mm")}
+                        </p>
+                        <p className="eventcard__weekday">
+                          {moment(date).format("ddd")}
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="eventcard__date__container" key={index}>
+                        {event.period && index === 0 ? <p className="eventcard__date__period">С</p> : null}
+                        {event.period && index === 1 ? <p className="eventcard__date__period">По</p> : null}
+                        <p className="eventcard__day">
+                          {moment(date).format("D")}
+                        </p>
+                        <p className="eventcard__month">
+                          {moment(date).format("MMM")}
+                        </p>
+                      </div>
+                    )
                   )}
               </div>
             )}

@@ -22,6 +22,27 @@ const EditEventForm = () => {
     useEventActions();
   const [isLoading, setIsLoading] = useState(true);
 
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  // SUBCATEGORIES
+  const subcategories = ["концерты", "театр", "детям"];
+  // CHECKBOXES FOR SUBCATEGORIES
+  const [checkedState, setCheckedState] = useState([]);
+
+  const [location, setLocation] = useState("");
+  const [address, setAddress] = useState("");
+
+  const [tempDate, setTempDate] = useState("");
+  const [tempDates, setTempDates] = useState([moment().format('YYYY-MM-DDTHH:mm'), moment().format('YYYY-MM-DDTHH:mm')])
+
+  const [dates, setDates] = useState([]);
+  const [period, setPeriod] = useState(false);
+
+  const [imgUrl, setImgUrl] = useState("");
+  const [description, setDescription] = useState("");
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     getEventById(eventId)
       .then((data) => {
@@ -35,10 +56,9 @@ const EditEventForm = () => {
         setCategory(data.category);
         setLocation(data.location);
         setAddress(data.address);
-        if (data.date) setDate(data.date);
+        setPeriod(data.period)
         if (data.dates.length > 0) {
           setDates(data.dates);
-          setToggleDate(false);
         }
         setImgUrl(data.img);
         setDescription(data.description);
@@ -50,42 +70,16 @@ const EditEventForm = () => {
     };
   }, [eventId, findEventById, getEventById, setEvent]);
 
-
-
-
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
-  // SUBCATEGORIES
-  const subcategories = ["концерты", "театр", "детям"];
-  // CHECKBOXES FOR SUBCATEGORIES
-  const [checkedState, setCheckedState] = useState([]);
-
-  const [location, setLocation] = useState("");
-  const [address, setAddress] = useState("");
-
-  const [toggleDate, setToggleDate] = useState(true);
-  const [date, setDate] = useState("");
-  const [tempDate, setTempDate] = useState("");
-  const [dates, setDates] = useState([]);
-  const [range, setRange] = useState([]);
-
-  const [imgUrl, setImgUrl] = useState("");
-  const [description, setDescription] = useState("");
-
-  useEffect(()=> {
-    console.log("Is One Date: ", toggleDate)
-    console.log("Date: ", date)
-    console.log("Dates: ", dates)
-  }, [dates, date, toggleDate])
-
-  const navigate = useNavigate();
-
   const onTitleChanged = (e) => setTitle(e.target.value);
   const onCategoryChanged = (e) => setCategory(e.target.value);
   const onLocationChanged = (e) => setLocation(e.target.value);
   const onAddressChanged = (e) => setAddress(e.target.value);
-  const onDateChanged = (e) => setDate(e.target.value);
   const onTempDateChanged = (e) => setTempDate(e.target.value);
+  const onTempDatesChanged = (e, index) => {
+    const newDates = [...tempDates];
+    newDates[index] = e.target.value;
+    setTempDates(newDates);
+  };
 
   const addDate = () => {
     if (tempDate) {
@@ -93,17 +87,16 @@ const EditEventForm = () => {
       setTempDate("");
     }
   };
+  const addDates = () => {
+    setDates([...tempDates]);
+    setTempDates([moment().format('YYYY-MM-DDTHH:mm'), moment().format('YYYY-MM-DDTHH:mm')]);
+};
   const deleteDate = (index) => {
     setDates(dates.filter((dateFromArray, i) => i !== index));
   };
-  const onToggleChanged = () => {
-    setToggleDate(!toggleDate);
-
-    if (toggleDate) {
-      setDate("");
-    } else {
-      setDates([]);
-    }
+  const onPeriodChange = () => {
+    setDates([]);
+    setPeriod(!period);
   };
 
   const handleSave = () => {
@@ -114,9 +107,8 @@ const EditEventForm = () => {
       subcategories: checkedState,
       location: location.trim(),
       address: address.trim(),
-      date: date ? moment.utc(date).format() : "",
       dates,
-      range,
+      period,
       img: imgUrl,
       description,
     });
@@ -144,7 +136,7 @@ const EditEventForm = () => {
         </div>
         <div className="form__item">
           <h4 htmlFor="dates">Дата</h4>
-          {!toggleDate && dates.length > 0 ? (
+          {!period && dates.length > 0 ? (
             <div className="addeventform__dates__container">
               {dates.map((dateFromDates, index) => (
                 <div key={index} className="addeventform__date">
@@ -161,54 +153,68 @@ const EditEventForm = () => {
               ))}
             </div>
           ) : null}
-          {date.length > 0 && (
+          <div className="subcategories-list-item">
+            <input
+              type="checkbox"
+              name={"oneDate"}
+              value={"one"}
+              checked={period}
+              onChange={onPeriodChange}
+            />
+            <label htmlFor={"oneDate"}>{"Период"}</label>
+          </div>
+          <div className={period ? "show date__block" : "hidden date__block"}>
             <div className="addeventform__dates__container">
-              <div className="addeventform__date">
-                <p>{moment.utc(date).format("L, HH:mm")}</p>
-              </div>
+              <p>С</p>
+              {dates[0] && (
+                <div key={0} className="addeventform__date">
+                  <p>{moment.utc(dates[0]).format("L, HH:mm")}</p>
+                  <img
+                    onClick={() => deleteDate(0)}
+                    className="addeventform__closeicon"
+                    width="14"
+                    height="14"
+                    src="https://img.icons8.com/metro/26/8da220/delete-sign.png"
+                    alt="delete-sign"
+                  />
+                </div>
+              )}
             </div>
-          )}
-          <ul className="subcategories-list">
-            <li>
-              <div className="subcategories-list-item">
-                <input
-                  type="checkbox"
-                  name={"oneDate"}
-                  value={"one"}
-                  checked={toggleDate}
-                  onChange={onToggleChanged}
-                />
-                <label htmlFor={"oneDate"}>{"Одна"}</label>
-              </div>
-            </li>
-            <li>
-              <div className="subcategories-list-item">
-                <input
-                  type="checkbox"
-                  name={"manyDate"}
-                  value={"many"}
-                  checked={!toggleDate}
-                  onChange={onToggleChanged}
-                />
-                <label htmlFor={"oneDate"}>{"Несколько"}</label>
-              </div>
-            </li>
-          </ul>
-          <div
-            className={toggleDate ? "show date__block" : "hidden date__block"}
-          >
             <input
               className="input"
               type="datetime-local"
-              id="date"
+              id="startDate"
               name="date"
-              value={date}
-              onChange={onDateChanged}
+              value={tempDates[0]}
+              onChange={(e) => onTempDatesChanged(e, 0)}
             />
+            <div className="addeventform__dates__container">
+            <p>По</p>
+            {dates[1] && (
+              <div key={1} className="addeventform__date">
+                <p>{moment.utc(dates[1]).format("L, HH:mm")}</p>
+                <img
+                  onClick={() => deleteDate(1)}
+                  className="addeventform__closeicon"
+                  width="14"
+                  height="14"
+                  src="https://img.icons8.com/metro/26/8da220/delete-sign.png"
+                  alt="delete-sign"
+                />
+              </div>
+            )}
+            </div>
+            <input
+              className="input"
+              type="datetime-local"
+              id="endDate"
+              name="date"
+              value={tempDates[1]}
+              onChange={(e) => onTempDatesChanged(e, 1)}
+            />
+            <Button action={addDates}>Добавить</Button>
           </div>
-          <div
-            className={!toggleDate ? "show date__block" : "hidden date__block"}
-          >
+          <div className={!period ? "show date__block" : "hidden date__block"}>
             <input
               className="input"
               type="datetime-local"

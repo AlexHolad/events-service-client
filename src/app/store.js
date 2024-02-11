@@ -2,7 +2,7 @@ import { create } from "zustand";
 import axios from "axios";
 import moment from 'moment'
 
-const mode = "PROD"
+const mode = "DEV"
 
 const baseURL = mode === "DEV" ? "http://localhost:5000": "https://events-service-api.onrender.com";
 axios.defaults.withCredentials = true;
@@ -93,9 +93,43 @@ const useEventStore = create((set, get) => ({
     // EVENTS REQUESTS
 
     getEvents: async () => {
+      const today = moment().utc().format();
+      const midnightToday = moment().utc().hours(23).minutes(59).format();
+      
       const response = await axios.get(`${baseURL}/events`);
       const { data } = response;
-      const events = data.filter((event) => moment() < moment(event.date) || moment() < moment(event.dates[event.dates.length - 1]))
+      console.log("Today: ", today)
+
+      const actualEvents = await data.filter((event)=> {        // MODIFY CLIENT STATE DELETING ALL PAST EVENTS
+      if(today > event.date || today > event.dates[event.dates.length - 1]) {return false}                             
+        return true
+      })
+        console.log("Actual Events", actualEvents)
+
+      let events = [...actualEvents]
+      
+      events = events.filter((event, index, arr) => {
+
+        // DELETING ALL DATES THAT PAST IN EVENTS WITH MANY DATES
+        if (!arr[index].period && arr[index].dates[0] < today) {
+          do {
+            arr[index].dates.shift();
+          } while (arr[index].dates[0] < today);
+        }
+        // CHANGE START DATE IN EVENTS WITH PERIOD TO TODAYS 23 HOURS FOR SHOWING LAST IN DAY ORDER
+        if (arr[index].period && arr[index].dates[0] < today) {
+          arr[index].dates[0] = midnightToday;
+        }
+        // MODIFY EVENTS WITH SINGLE DATE, MOVING IT TO ARRAY DATES ON [0] POSITION
+        if(arr[index].date) {
+          arr[index].dates[0] = arr[index].date 
+          arr[index].date = ""
+        }
+
+        return true
+      });
+      console.log(events)
+
       set({ events });
     },
 

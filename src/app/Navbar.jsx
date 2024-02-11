@@ -13,7 +13,7 @@ export const Navbar = () => {
   const [visCalendar, toggleVisCalendar] = useState(false);
 
   const accessToken = useToken();
-  const { signout} = useEventActions();
+  const { signout, setDate} = useEventActions();
 
   const navigate = useNavigate();
 
@@ -27,14 +27,14 @@ export const Navbar = () => {
     setMenuToggle(false);
   };
 
-  const handleSignOut = async () => {
-    try {
-      signout();
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const handleSignOut = async () => {
+  //   try {
+  //     signout();
+  //     navigate("/");
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   return (
     <header>
