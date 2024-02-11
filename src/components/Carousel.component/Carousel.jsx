@@ -35,18 +35,15 @@ const sortedEvents = useMemo(() => {
 const sortedEvents = [...events]
 // Sort posts in inscending chronological order
 sortedEvents.sort((a, b) => {
-  if (!a.date) {
-     // Change this values if you want to put `null` values at the end of the array
-     return +1;
-  }
-
-  if (!b.date) {
-     // Change this values if you want to put `null` values at the end of the array
-     return -1;
-  }
-
-  return a.date.localeCompare(b.date);
-});
+  if (!a.dates[0]) {
+    return 1;
+}
+if (!b.dates[0]) {
+    return -1;
+}
+ return a.dates[0].localeCompare(b.dates[0])
+}
+);
 return sortedEvents;
 }, [events]);
 

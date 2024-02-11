@@ -49,17 +49,17 @@ let EventExcerpt = ({ event, goToEditPage, setEventId}) => {
                   {/* SHOW MANY DATES IF DATES ExIST */}
                   {event.dates.length > 0 && event.dates.map((date, index)=> 
                     <li key={index} className="event__date__container">
-                    <p className="event__weekday">
-                      {moment(date).format("ddd")},
+                    <p className="event__day">
+                      {moment(date).format("D")}
                     </p>
                     <p className="event__month">
                       {moment(date).format("MMM")}
                     </p>
-                    <p className="event__day">
-                      {moment(date).format("D")},
-                    </p>
                     <p className="event__time">
                       {moment.utc(date).format("HH:mm")}
+                    </p>
+                    <p className="event__weekday">
+                      {moment(date).format("ddd")}
                     </p>
                   </li>
                   )}
@@ -93,7 +93,7 @@ function UserPage() {
     if (token !== null) {
       getUserEvents();
     }
-  }, [token, getUserEvents, events]);
+  }, [token, getUserEvents]);
 
   useEffect(() => {
     moment.updateLocale("ru");

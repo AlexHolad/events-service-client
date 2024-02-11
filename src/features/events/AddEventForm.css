@@ -58,6 +58,7 @@ label {
 .addeventform__dates__container {
     display: flex;
     flex-wrap: wrap;
+    align-items:center;
 }
 
 .addeventform__date {

@@ -50,17 +50,17 @@ let EventExcerpt = ({ event }) => {
                   {/* SHOW MANY DATES IF DATES ExIST */}
                   {event.dates.length > 0 && event.dates.map((date, index)=> 
                     <li key={index} className="event__date__container">
-                    <p className="event__weekday">
-                      {moment(date).format("ddd")},
+                    <p className="event__day">
+                      {moment(date).format("D")}
                     </p>
                     <p className="event__month">
                       {moment(date).format("MMM")}
                     </p>
-                    <p className="event__day">
-                      {moment(date).format("D")},
-                    </p>
                     <p className="event__time">
                       {moment.utc(date).format("HH:mm")}
+                    </p>
+                    <p className="event__weekday">
+                      {moment(date).format("ddd")}
                     </p>
                   </li>
                   )}
@@ -85,7 +85,10 @@ export const EventsList = () => {
 
   useEffect(() => {
     moment.updateLocale("ru");
-  }, []);
+    if(category || subcategory){
+      setDate("")
+    }
+  }, [subcategory, category, date, setDate]);
 
   useEffect(() => {
     getEvents();
@@ -94,7 +97,7 @@ export const EventsList = () => {
   useEffect(() => {
     return () => {
       // Component unmounted
-      setDate(new Date());
+      setDate('');
       setSearchField("");
     };
   }, [setDate, setSearchField]);
@@ -103,17 +106,17 @@ export const EventsList = () => {
     const sortedEvents = [...events];
     // Sort posts in inscending chronological order
     sortedEvents.sort((a, b) => {
-      if (!a.date) {
+      if (!a.dates[0]) {
         // Change this values if you want to put `null` values at the end of the array
         return +1;
       }
 
-      if (!b.date) {
+      if (!b.dates[0]) {
         // Change this values if you want to put `null` values at the end of the array
         return -1;
       }
 
-      return a.date.localeCompare(b.date);
+      return a.dates[0].localeCompare(b.dates[0]);
     });
     return sortedEvents;
   }, [events]);
@@ -136,12 +139,13 @@ export const EventsList = () => {
     );
   }
 
-  if (moment(date).format("L") !== moment(new Date()).format("L")) {
+  if (date) {
     console.log("Date", typeof date);
     console.log("Moment date", typeof moment(new Date()).format("L"));
     filteredEvents = filteredEvents.filter(
-      (event) => moment(event.date).format("L") === moment(date).format("L")
+      (event) => event.dates[0] && moment(event.dates[0]).format("L") === moment(date).format("L")
     );
+    console.log(filteredEvents)
   }
 
   if (searchField.length > 0) {

@@ -13,7 +13,7 @@ function CalendarElement() {
     const date = useDate()
     const {setDate} = useEventActions()
     const events = useEvents()
-    const mark = new Set(events.map(({date})=> (moment(date).format("DD-MM-YYYY"))))
+    const mark = new Set(events.map(({dates})=> (moment(dates[0]).format("DD-MM-YYYY"))))
 
     console.log('dates array', mark)
 
