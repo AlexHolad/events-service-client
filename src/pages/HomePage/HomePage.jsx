@@ -23,11 +23,10 @@ export default function HomePage() {
   ];
 
   const {getEvents} = useEventActions()
-
   useEffect(() => {
     getEvents()
    },[getEvents]);
- 
+
   const events = useEvents()
 
   return (

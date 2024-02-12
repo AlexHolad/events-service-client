@@ -1,8 +1,9 @@
 
 
-function Spinner({text}) {
+function Spinner({loading}) {
+
   return (
-    <div>{text}</div>
+    <div></div>
   )
 }
 
