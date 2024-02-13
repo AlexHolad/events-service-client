@@ -70,12 +70,12 @@ export const EventCarousel = ({ events, category }) => {
       dotListClass="custom-dot-list-style"
       slidesToSlide={5}
     >
-      {!events.length &&
-        skeletonArr.map((card, index) => <SkeletonCard key={index} index={index}/>)}
       {filteredEvents &&
         filteredEvents.map((event) => (
           <EventCard key={event._id} event={event} />
-        ))}
+          ))}
+          {!events.length &&
+            skeletonArr.map((card, index) => <SkeletonCard key={index} index={index}/>)}
     </Carousel>
   );
 };
