@@ -29,8 +29,8 @@ const AddEventForm = () => {
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("");
 
-  const [tempDate, setTempDate] = useState("");
-  const [tempDates, setTempDates] = useState([moment().format('YYYY-MM-DDTHH:mm'), moment().format('YYYY-MM-DDTHH:mm')])
+  const [tempDate, setTempDate] = useState(moment([moment().year(), moment().month()]).format('YYYY-MM-DDTHH:mm'));
+  const [tempDates, setTempDates] = useState([moment([moment().year(), moment().month()]).format('YYYY-MM-DDTHH:mm'), moment([moment().year(),moment().month()]).format('YYYY-MM-DDTHH:mm')])
 
   const [dates, setDates] = useState([]);
   const [period, setPeriod] = useState(false);
@@ -69,12 +69,12 @@ const AddEventForm = () => {
         return a.localeCompare(b);
       });
       setDates(sortedDates);
-      setTempDate("");
+      setTempDate(moment([moment().year(), moment().month()]).format('YYYY-MM-DDTHH:mm'));
     }
   };
   const addDates = () => {
       setDates([...tempDates]);
-      setTempDates([moment().format('YYYY-MM-DDTHH:mm'), moment().format('YYYY-MM-DDTHH:mm')]);
+      setTempDates([moment([moment().year(),moment().month()]).format('YYYY-MM-DDTHH:mm'), moment([moment().year(),moment().month()]).format('YYYY-MM-DDTHH:mm')]);
   };
   const deleteDate = (index) => {
     setDates(dates.filter((dateFromArray, i) => i !== index));
@@ -292,8 +292,10 @@ const AddEventForm = () => {
             language: "ru",
             height: 500,
             menubar: true,
+            browser_spellcheck: true,
+            contextmenu: false,
             plugins: [
-              "autolink",
+              // "autolink",
               "lists",
               "link",
               "preview",
@@ -305,9 +307,10 @@ const AddEventForm = () => {
               "code",
             ],
             toolbar:
-              "undo redo | blocks link | " +
+              "undo redo | blocks link |" +
               "bold italic | alignleft aligncenter " +
               "alignright alignjustify | bullist numlist outdent indent | ",
+              link_default_target: '_blank',
             content_style:
               "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
             relative_urls: false,

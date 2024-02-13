@@ -13,6 +13,8 @@ export default function TextEditor({description, setDescription}) {
           language: 'ru',
           height: 500,
           menubar: true,
+          browser_spellcheck: true,
+          contextmenu: false,
           plugins: [
             "autolink",
             "lists",
@@ -29,6 +31,7 @@ export default function TextEditor({description, setDescription}) {
             "undo redo | blocks | " +
             "bold italic | alignleft aligncenter " +
             "alignright alignjustify | bullist numlist outdent indent | ",
+            link_default_target: '_blank',
           content_style:
             "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
             relative_urls : false,
