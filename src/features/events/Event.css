@@ -37,6 +37,11 @@
   text-transform: capitalize;
 }
 
+.eventpage__month {
+  text-transform: capitalize;
+
+}
+
 .event__item {
   margin: 1rem 0;
 }

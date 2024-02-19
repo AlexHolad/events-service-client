@@ -34,8 +34,7 @@ export default function EventCard({ event }) {
                   </div>
                 )}
                 {event.dates.length > 0 &&
-                  event.dates.map((date, index) => 
-                
+                  event.dates.map((date, index) =>
                     !event.period ? (
                       <div className="eventcard__date__container" key={index}>
                         <p className="eventcard__day">
@@ -53,8 +52,12 @@ export default function EventCard({ event }) {
                       </div>
                     ) : (
                       <div className="eventcard__date__container" key={index}>
-                        {event.period && index === 0 ? <p className="eventcard__date__period">С</p> : null}
-                        {event.period && index === 1 ? <p className="eventcard__date__period">По</p> : null}
+                        {event.period && index === 0 ? (
+                          <p className="eventcard__date__period">С</p>
+                        ) : null}
+                        {event.period && index === 1 ? (
+                          <p className="eventcard__date__period">По</p>
+                        ) : null}
                         <p className="eventcard__day">
                           {moment(date).format("D")}
                         </p>

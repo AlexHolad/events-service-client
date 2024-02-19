@@ -55,7 +55,7 @@ export const EventCarousel = ({ events, category }) => {
     return finalList;
   }, [sortedEvents]);
 
-  return (
+  return filteredEvents.length ? (
     <Carousel
       swipeable={true}
       draggable={false}
@@ -73,9 +73,27 @@ export const EventCarousel = ({ events, category }) => {
       {filteredEvents &&
         filteredEvents.map((event) => (
           <EventCard key={event._id} event={event} />
-          ))}
-          {!events.length &&
-            skeletonArr.map((card, index) => <SkeletonCard key={index} index={index}/>)}
+        ))}
+    </Carousel>
+  ) : (
+    <Carousel
+      swipeable={true}
+      draggable={false}
+      showDots={true}
+      responsive={responsive}
+      className="carousel__container"
+      infinite={false}
+      autoPlaySpeed={1000}
+      keyBoardControl={true}
+      containerClass="carousel-container"
+      removeArrowOnDeviceType={["tablet", "mobile"]}
+      dotListClass="custom-dot-list-style"
+      slidesToSlide={5}
+    >
+      {!events.length &&
+        skeletonArr.map((card, index) => (
+          <SkeletonCard key={index} index={index} />
+        ))}
     </Carousel>
   );
 };

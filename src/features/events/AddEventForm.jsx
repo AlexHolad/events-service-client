@@ -29,8 +29,12 @@ const AddEventForm = () => {
   const [location, setLocation] = useState("");
   const [address, setAddress] = useState("");
 
-  const [tempDate, setTempDate] = useState(moment([moment().year(), moment().month()]).format('YYYY-MM-DDTHH:mm'));
-  const [tempDates, setTempDates] = useState([moment([moment().year(), moment().month()]).format('YYYY-MM-DDTHH:mm'), moment([moment().year(),moment().month()]).format('YYYY-MM-DDTHH:mm')])
+  const [tempDate, setTempDate] = useState(
+    moment([moment().year(), moment().month()]).format("YYYY-MM-DDTHH:mm")
+  );
+  const [tempStartDate, setTempStartDate] = useState(moment([moment().year(), moment().month()]).format("YYYY-MM-DDTHH:mm"))
+  const [tempEndDate, setTempEndDate] = useState(moment([moment().year(), moment().month()]).format("YYYY-MM-DDTHH:mm"))
+
 
   const [dates, setDates] = useState([]);
   const [period, setPeriod] = useState(false);
@@ -46,35 +50,43 @@ const AddEventForm = () => {
   const onLocationChanged = (e) => setLocation(e.target.value);
   const onAddressChanged = (e) => setAddress(e.target.value);
   const onTempDateChanged = (e) => setTempDate(e.target.value);
-  const onTempDatesChanged = (e, index) => {
-    const newDates = [...tempDates];
-    newDates[index] = e.target.value;
-    setTempDates(newDates);
-  };
+  const onTempStartDateChanged = (e) => setTempStartDate(e.target.value);
+  const onTempEndDateChanged = (e) => setTempEndDate(e.target.value);
+  
 
   const addDate = () => {
     if (tempDate) {
-      const sortedDates = [...dates, moment.utc(tempDate).format()]
+      const sortedDates = [...dates, moment.utc(tempDate).format()];
       sortedDates.sort((a, b) => {
         if (!a) {
-           // Change this values if you want to put `null` values at the end of the array
-           return +1;
+          // Change this values if you want to put `null` values at the end of the array
+          return +1;
         }
-      
+
         if (!b) {
-           // Change this values if you want to put `null` values at the end of the array
-           return -1;
+          // Change this values if you want to put `null` values at the end of the array
+          return -1;
         }
-      
+
         return a.localeCompare(b);
       });
       setDates(sortedDates);
-      setTempDate(moment([moment().year(), moment().month()]).format('YYYY-MM-DDTHH:mm'));
+      setTempDate(
+        moment([moment().year(), moment().month()]).format("YYYY-MM-DDTHH:mm")
+      );
     }
   };
-  const addDates = () => {
-      setDates([...tempDates]);
-      setTempDates([moment([moment().year(),moment().month()]).format('YYYY-MM-DDTHH:mm'), moment([moment().year(),moment().month()]).format('YYYY-MM-DDTHH:mm')]);
+  const addStartDate = () => {
+    const arr = [...dates]
+    arr[0] = moment.utc(tempStartDate)
+    setDates(arr);
+    setTempStartDate(moment([moment().year(), moment().month()]).format("YYYY-MM-DDTHH:mm"));
+  };
+  const addEndDate = () => {
+    const arr = [...dates]
+    arr[1] = moment.utc(tempEndDate)
+    setDates(arr);
+    setTempEndDate(moment([moment().year(), moment().month()]).format("YYYY-MM-DDTHH:mm"));
   };
   const deleteDate = (index) => {
     setDates(dates.filter((dateFromArray, i) => i !== index));
@@ -135,14 +147,17 @@ const AddEventForm = () => {
             </div>
           ) : null}
           <div className="subcategories-list-item">
-            <input
-              type="checkbox"
-              name={"oneDate"}
-              value={"one"}
-              checked={period}
-              onChange={onPeriodChange}
-            />
+            {/* SWITCH */}
+            <label className="switch">
+              <input
+                type="checkbox"
+                checked={period}
+                onChange={onPeriodChange}
+              ></input>
+              <span className="slider round"></span>
+            </label>
             <label htmlFor={"oneDate"}>{"Период"}</label>
+            {/* SWITCH */}
           </div>
           <div className={period ? "show date__block" : "hidden date__block"}>
             <div className="addeventform__dates__container">
@@ -161,39 +176,48 @@ const AddEventForm = () => {
                 </div>
               )}
             </div>
+            <div className="date__block">
             <input
               className="input"
               type="datetime-local"
               id="startDate"
               name="date"
-              value={tempDates[0]}
-              onChange={(e) => onTempDatesChanged(e, 0)}
+              value={tempStartDate}
+              onChange={onTempStartDateChanged}
             />
-            <div className="addeventform__dates__container">
-            <p>По</p>
-            {dates[1] && (
-              <div key={1} className="addeventform__date">
-                <p>{moment.utc(dates[1]).format("L, HH:mm")}</p>
-                <img
-                  onClick={() => deleteDate(1)}
-                  className="addeventform__closeicon"
-                  width="14"
-                  height="14"
-                  src="https://img.icons8.com/metro/26/8da220/delete-sign.png"
-                  alt="delete-sign"
-                />
-              </div>
-            )}
+            <button className="form__button" onClick={addStartDate}>
+              +
+            </button>
             </div>
+            <div className="addeventform__dates__container">
+              <p>По</p>
+              {dates[1] && (
+                <div key={1} className="addeventform__date">
+                  <p>{moment.utc(dates[1]).format("L, HH:mm")}</p>
+                  <img
+                    onClick={() => deleteDate(1)}
+                    className="addeventform__closeicon"
+                    width="14"
+                    height="14"
+                    src="https://img.icons8.com/metro/26/8da220/delete-sign.png"
+                    alt="delete-sign"
+                  />
+                </div>
+              )}
+            </div>
+            <div className="date__block">
             <input
               className="input"
               type="datetime-local"
               id="endDate"
               name="date"
-              value={tempDates[1]}
-              onChange={(e) => onTempDatesChanged(e, 1)}
+              value={tempEndDate}
+              onChange={onTempEndDateChanged}
             />
-            <Button action={addDates}>Добавить</Button>
+            <button className="form__button" onClick={addEndDate}>
+              +
+            </button>
+            </div>
           </div>
           <div className={!period ? "show date__block" : "hidden date__block"}>
             <input
@@ -204,7 +228,9 @@ const AddEventForm = () => {
               value={tempDate}
               onChange={onTempDateChanged}
             />
-            <Button action={addDate}>Добавить</Button>
+            <button className="form__button" onClick={addDate}>
+              +
+            </button>
           </div>
         </div>
         <div className="form__item">
@@ -294,23 +320,13 @@ const AddEventForm = () => {
             menubar: true,
             browser_spellcheck: true,
             contextmenu: false,
-            plugins: [
-              // "autolink",
-              "lists",
-              "link",
-              "preview",
-              "searchreplace",
-              "visualblocks",
-              "code",
-              "fullscreen",
-              "insertdatetime",
-              "code",
-            ],
+            plugins: 
+                "anchor lists link autolink preview searchreplace visualblocks code fullscreen insertdatetime code",
             toolbar:
               "undo redo | blocks link |" +
               "bold italic | alignleft aligncenter " +
               "alignright alignjustify | bullist numlist outdent indent | ",
-              link_default_target: '_blank',
+            link_default_target: "_blank",
             content_style:
               "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
             relative_urls: false,
@@ -320,7 +336,7 @@ const AddEventForm = () => {
       <div>{/* <div>{parse(convertedContent)}</div> */}</div>
       <div className="actions">
         <Button className="form__btn" action={handleSend}>
-          {"Добавить"}
+          {"Сохранить"}
         </Button>
       </div>
     </div>

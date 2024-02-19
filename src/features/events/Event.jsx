@@ -48,31 +48,54 @@ function Event() {
                   {/* SHOW ONE DATE IF DATE EXIST */}
                   {event.date && (
                     <div className="eventpage__date__container">
-                      <p className="eventpage__weekday">
-                        {moment(event.date).format("dddd")},
-                      </p>
                       <p className="eventpage__day">
-                        {moment(event.date).format("LL")}
-                      </p>
-                      <p className="eventpage__time">
-                        {moment.utc(event.date).format("HH:mm")}
-                      </p>
+                            {moment(event.date).format("D")}
+                          </p>
+                          <p className="eventpage__month">
+                            {moment(event.date).format("MMM")}
+                          </p>
+                          <p className="eventpage__time">
+                            {moment.utc(event.date).format("HH:mm")}
+                          </p>
+                          <p className="eventpage__weekday">
+                            {moment(event.date).format("ddd")}.
+                          </p>
                     </div>
                   )}
                   {/* SHOW MANY DATES IF DATES ExIST */}
                   {event.dates.length > 0 &&
                     event.dates.map((date, index) => (
-                      <li key={index} className="eventpage__date__container">
-                        <p className="eventpage__time">
-                          {moment.utc(date).format("HH:mm")}
-                        </p>
-                        <p className="eventpage__day">
-                          {moment(date).format("LL")}
-                        </p>
-                        <p className="eventpage__weekday">
-                          {moment(date).format("dddd")}
-                        </p>
-                      </li>
+                      !event.period ? (
+                        <div className="eventpage__date__container" key={index}>
+                          <p className="eventpage__day">
+                            {moment(date).format("D")}
+                          </p>
+                          <p className="eventpage__month">
+                            {moment(date).format("MMM")}
+                          </p>
+                          <p className="eventpage__time">
+                            {moment.utc(date).format("HH:mm")}
+                          </p>
+                          <p className="eventpage__weekday">
+                            {moment(date).format("ddd")}
+                          </p>
+                        </div>
+                      ) : (
+                        <div className="eventpage__date__container" key={index}>
+                          {event.period && index === 0 ? (
+                            <p className="eventpage__date__period">С</p>
+                          ) : null}
+                          {event.period && index === 1 ? (
+                            <p className="eventpage__date__period">По</p>
+                          ) : null}
+                          <p className="eventpage__day">
+                            {moment(date).format("D")}
+                          </p>
+                          <p className="eventpage__month">
+                            {moment(date).format("MMM")}
+                          </p>
+                        </div>
+                      )
                     ))}
                   {/* SHOW RANGELIST IF LIST EXIST */}
                 </ul>

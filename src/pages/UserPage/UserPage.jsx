@@ -27,44 +27,57 @@ let EventExcerpt = ({ event, goToEditPage, setEventId}) => {
           </div>
           {event.category !== "места для посещения" &&
             event.category !== "игры" && (
-              <div className="event__date__container">
-                <ul className="dateslist">
-                  {/* SHOW ONE DATE IF DATE EXIST */}
-                  {event.date && (
-                    <li className="event__date__container">
-                      <p className="event__weekday">
-                        {moment(event.date).format("ddd")},
-                      </p>
-                      <p className="event__month">
-                        {moment(event.date).format("MMM")}
-                      </p>
-                      <p className="event__day">
-                        {moment(event.date).format("D")},
-                      </p>
-                      <p className="event__time">
-                        {moment.utc(event.date).format("HH:mm")}
-                      </p>
-                    </li>
+              <div className="eventcard__dates__container">
+                {event.date && (
+                  <div className="eventcard__date__container">
+                    <p className="eventcard__day">
+                      {moment(event.date).format("D")}
+                    </p>
+                    <p className="eventcard__month">
+                      {moment(event.date).format("MMM")}
+                    </p>
+                    <p className="eventcard__time">
+                      {moment.utc(event.date).format("HH:mm")}
+                    </p>
+                    <p className="eventcard__weekday">
+                      {moment(event.date).format("ddd")}
+                    </p>
+                  </div>
+                )}
+                {event.dates.length > 0 &&
+                  event.dates.map((date, index) =>
+                    !event.period ? (
+                      <div className="eventcard__date__container" key={index}>
+                        <p className="eventcard__day">
+                          {moment(date).format("D")}
+                        </p>
+                        <p className="eventcard__month">
+                          {moment(date).format("MMM")}
+                        </p>
+                        <p className="eventcard__time">
+                          {moment.utc(date).format("HH:mm")}
+                        </p>
+                        <p className="eventcard__weekday">
+                          {moment(date).format("ddd")}
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="eventcard__date__container" key={index}>
+                        {event.period && index === 0 ? (
+                          <p className="eventcard__date__period">С</p>
+                        ) : null}
+                        {event.period && index === 1 ? (
+                          <p className="eventcard__date__period">По</p>
+                        ) : null}
+                        <p className="eventcard__day">
+                          {moment(date).format("D")}
+                        </p>
+                        <p className="eventcard__month">
+                          {moment(date).format("MMM")}
+                        </p>
+                      </div>
+                    )
                   )}
-                  {/* SHOW MANY DATES IF DATES ExIST */}
-                  {event.dates.length > 0 && event.dates.map((date, index)=> 
-                    <li key={index} className="event__date__container">
-                    <p className="event__day">
-                      {moment(date).format("D")}
-                    </p>
-                    <p className="event__month">
-                      {moment(date).format("MMM")}
-                    </p>
-                    <p className="event__time">
-                      {moment.utc(date).format("HH:mm")}
-                    </p>
-                    <p className="event__weekday">
-                      {moment(date).format("ddd")}
-                    </p>
-                  </li>
-                  )}
-                  {/* SHOW RANGELIST IF LIST EXIST */}
-                </ul>
               </div>
             )}
           <p className="event__location">{event.location}</p>
@@ -116,17 +129,17 @@ function UserPage() {
     const sortedEvents = events.slice();
     // Sort posts in descending chronological order
     sortedEvents.sort((a, b) => {
-      if (!a.date) {
+      if (!a.dates[0]) {
          // Change this values if you want to put `null` values at the end of the array
          return +1;
       }
     
-      if (!b.date) {
+      if (!b.dates[0]) {
          // Change this values if you want to put `null` values at the end of the array
          return -1;
       }
     
-      return a.date.localeCompare(b.date);
+      return a.dates[0].localeCompare(b.dates[0]);
     });
     return sortedEvents;
   }, [events]);
