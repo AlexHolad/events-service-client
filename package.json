@@ -13,6 +13,7 @@
     "@tinymce/tinymce-react": "^4.3.2",
     "axios": "^1.5.1",
     "cloudinary-react": "^1.8.1",
+    "cyrillic-to-translit-js": "^3.2.1",
     "dotenv": "^16.3.1",
     "html-react-parser": "^5.0.7",
     "moment": "^2.29.4",

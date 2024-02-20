@@ -1,28 +1,39 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import Spinner from "../../components/Spinner.component/Spinner";
-
 import moment from "moment";
 import "moment/dist/locale/ru";
 
-import { useUserEvents, useEventActions, useToken, useEventId } from "../../app/store";
+// cyrillic-to-translit converter
+import CyrillicToTranslit from "cyrillic-to-translit-js";
+
+import {
+  useUserEvents,
+  useEventActions,
+  useToken,
+  useEventId,
+} from "../../app/store";
 
 import Agree from "../../components/Agree.component/Agree";
 import Button from "../../components/Button.component/Button";
 
 import "./UserPage.css";
 
-let EventExcerpt = ({ event, goToEditPage, setEventId}) => {
-  const { _id } = event;
+let EventExcerpt = ({ event, goToEditPage, setEventId }) => {
+  // TRANSLIT FROM CYRILLIC
+  const cyrillicToTranslit = new CyrillicToTranslit();
+  const translitTitle = cyrillicToTranslit
+    .transform(event.title, "-")
+    .toLowerCase();
+  // TRANSLIT FROM CYRILLIC
   return (
     <div className="userpage__event__container" key={event._id}>
-      <Link to={`/event/${event._id}`}>
+      <Link to={`/event/${translitTitle}`} state={{ eventId: event._id }}>
         <div className="event__img__container">
           <img className="event__img" src={event.img} />
         </div>
         <div className="event__info">
-        <div className="event__title__container">
+          <div className="event__title__container">
             <h2 className="event__title truncate">{event.title}</h2>
           </div>
           {event.category !== "места для посещения" &&
@@ -87,7 +98,7 @@ let EventExcerpt = ({ event, goToEditPage, setEventId}) => {
         <button className="button" onClick={() => goToEditPage(_id)}>
           Изменить
         </button>
-        <button className="button" onClick={()=> setEventId(_id)}>
+        <button className="button" onClick={() => setEventId(_id)}>
           Удалить
         </button>
       </div>
@@ -100,7 +111,7 @@ function UserPage() {
   const navigate = useNavigate();
   const { deleteEvent, getUserEvents, setEventId } = useEventActions();
   const token = useToken();
-  const eventId = useEventId()
+  const eventId = useEventId();
 
   useEffect(() => {
     if (token !== null) {
@@ -112,11 +123,10 @@ function UserPage() {
     moment.updateLocale("ru");
   }, []);
 
-
   const deletEventAndClearId = (eventId) => {
-    deleteEvent(eventId)
-    setEventId("")
-  }
+    deleteEvent(eventId);
+    setEventId("");
+  };
 
   const goToAdding = () => {
     navigate("/events/add");
@@ -126,19 +136,19 @@ function UserPage() {
   };
 
   const sortedEvents = useMemo(() => {
-    const sortedEvents = events.slice();
+    const sortedEvents = [...events];
     // Sort posts in descending chronological order
     sortedEvents.sort((a, b) => {
       if (!a.dates[0]) {
-         // Change this values if you want to put `null` values at the end of the array
-         return +1;
+        // Change this values if you want to put `null` values at the end of the array
+        return +1;
       }
-    
+
       if (!b.dates[0]) {
-         // Change this values if you want to put `null` values at the end of the array
-         return -1;
+        // Change this values if you want to put `null` values at the end of the array
+        return -1;
       }
-    
+
       return a.dates[0].localeCompare(b.dates[0]);
     });
     return sortedEvents;
@@ -164,9 +174,15 @@ function UserPage() {
     <div className="userpage__container gen__container">
       <Button action={goToAdding}>Add new Event</Button>
       <div className="userpage__events__container">{content}</div>
-      <Agree 
-        doaction={deletEventAndClearId} cancel={setEventId} cancelValue={""} thequestion={"Вы действительно хотите удалить?"} theaction__param={eventId} thebtn1text={"Отмена"} thebtn2text={"Удалить"}
-        />
+      <Agree
+        doaction={deletEventAndClearId}
+        cancel={setEventId}
+        cancelValue={""}
+        thequestion={"Вы действительно хотите удалить?"}
+        theaction__param={eventId}
+        thebtn1text={"Отмена"}
+        thebtn2text={"Удалить"}
+      />
     </div>
   );
 }

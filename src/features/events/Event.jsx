@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 
 import moment from "moment";
 
@@ -11,9 +11,12 @@ import "./Event.css";
 import { useEvent, useEventActions } from "../../app/store";
 
 function Event() {
-  const { eventId } = useParams();
+  let { state } = useLocation();
+  const { eventId } = state;
   const { getEventById, setEvent } = useEventActions();
   const event = useEvent();
+
+  
 
   useEffect(()=> {
     console.log(event.date)

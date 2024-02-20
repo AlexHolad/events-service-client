@@ -11,12 +11,19 @@ import {
 import moment from "moment";
 import "moment/dist/locale/ru";
 
+// cyrillic-to-translit converter
+import CyrillicToTranslit from 'cyrillic-to-translit-js';
+
 import "./EventsList.css";
 
 let EventExcerpt = ({ event }) => {
+    // TRANSLIT FROM CYRILLIC
+    const cyrillicToTranslit = new CyrillicToTranslit();
+    const translitTitle = cyrillicToTranslit.transform(event.title, '-').toLowerCase();
+    // TRANSLIT FROM CYRILLIC
   return (
     <div className="event__container" key={event._id}>
-      <Link to={`/event/${event._id}`}>
+      <Link to={`/event/${translitTitle}`} state={{ eventId: event._id }}>
         <div className="event__img__container">
           <img className="event__img" src={event.img} />
         </div>

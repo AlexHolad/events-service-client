@@ -1,12 +1,21 @@
 import { Link } from "react-router-dom";
 import moment from "moment";
+
+// cyrillic-to-translit converter
+import CyrillicToTranslit from 'cyrillic-to-translit-js';
+
 // CSS
 import "./EventCard.css";
 
 export default function EventCard({ event }) {
+  // TRANSLIT FROM CYRILLIC
+  const cyrillicToTranslit = new CyrillicToTranslit();
+  const translitTitle = cyrillicToTranslit.transform(event.title, '-').toLowerCase();
+  // TRANSLIT FROM CYRILLIC
+
   return (
     <div className="eventcard__container" key={event._id}>
-      <Link to={`/event/${event._id}`}>
+      <Link to={`/event/${translitTitle}`} state={{ eventId: event._id }}>
         <div className="eventcard__img__container">
           <img className="eventcard__img" src={event.img} />
         </div>
