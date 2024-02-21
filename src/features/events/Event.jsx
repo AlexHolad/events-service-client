@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 import moment from "moment";
 
@@ -16,13 +16,10 @@ function Event() {
   const { getEventById, setEvent } = useEventActions();
   const event = useEvent();
 
-  
-
-  useEffect(()=> {
-    console.log(event.date)
-    console.log(event.dates)
-
-  }, [event.date, event.dates])
+  useEffect(() => {
+    console.log(event.date);
+    console.log(event.dates);
+  }, [event.date, event.dates]);
 
   useEffect(() => {
     getEventById(eventId);
@@ -52,22 +49,22 @@ function Event() {
                   {event.date && (
                     <div className="eventpage__date__container">
                       <p className="eventpage__day">
-                            {moment(event.date).format("D")}
-                          </p>
-                          <p className="eventpage__month">
-                            {moment(event.date).format("MMM")}
-                          </p>
-                          <p className="eventpage__time">
-                            {moment.utc(event.date).format("HH:mm")}
-                          </p>
-                          <p className="eventpage__weekday">
-                            {moment(event.date).format("ddd")}.
-                          </p>
+                        {moment(event.date).format("D")}
+                      </p>
+                      <p className="eventpage__month">
+                        {moment(event.date).format("MMM")}
+                      </p>
+                      <p className="eventpage__time">
+                        {moment.utc(event.date).format("HH:mm")}
+                      </p>
+                      <p className="eventpage__weekday">
+                        {moment(event.date).format("ddd")}.
+                      </p>
                     </div>
                   )}
                   {/* SHOW MANY DATES IF DATES ExIST */}
                   {event.dates.length > 0 &&
-                    event.dates.map((date, index) => (
+                    event.dates.map((date, index) =>
                       !event.period ? (
                         <div className="eventpage__date__container" key={index}>
                           <p className="eventpage__day">
@@ -99,7 +96,7 @@ function Event() {
                           </p>
                         </div>
                       )
-                    ))}
+                    )}
                   {/* SHOW RANGELIST IF LIST EXIST */}
                 </ul>
               </div>
@@ -108,8 +105,16 @@ function Event() {
           <h1 className="eventpage__title truncate">{event.title}</h1>
           <div className="event__item">
             <h5 className="event__item__headline">Площадка</h5>
-            <p className="eventpage__location">{event.location}</p>
-            <p className="eventpage__address">{event.address}</p>
+            <p className="eventpage__location"><Link to={`/events/venue/${event.location}`}>{event.location}</Link></p>
+            <p className="eventpage__address">
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURI(
+                  event.location
+                )} ${encodeURI(event.address)}`}
+                target="_blank"
+                rel="noreferrer"
+              >{event.address}</a>
+            </p>
           </div>
           <div className="event__item">
             <h5 className="event__item__headline">Описание</h5>

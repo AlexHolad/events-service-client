@@ -53,11 +53,30 @@
 .eventpage__location {
   font-size: 1rem;
   color: #14213d;
+  transition: 1.5s;
+}
+
+.eventpage__location:hover {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #394869;
+  transition: 0.2s;
+  margin-left: 1rem;
 }
 .eventpage__address {
   font-size: 1rem;
   color: #b9bbc0;
+  transition: 1.5s;
 }
+
+.eventpage__address:hover {
+  font-size: 1rem;
+  color: #57585a;
+  transition: 0.2s;
+  margin-left: 1rem;
+}
+
+
 .eventpage__description {
   text-align: justify;
   font-size: 1rem;
