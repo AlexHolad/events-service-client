@@ -1,6 +1,6 @@
 // HOOKS
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import moment from "moment";
 
@@ -17,7 +17,8 @@ import CloudinaryUploadWidget from "../../components/Cloudinary.component/Cloudi
 import "./EditEventForm.css";
 
 const EditEventForm = () => {
-  const { eventId } = useParams();
+  let { state } = useLocation();
+  const { eventId } = state;
   const { setEvent, getEventById, editEvent, findEventById } =
     useEventActions();
   const [isLoading, setIsLoading] = useState(true);

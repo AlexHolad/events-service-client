@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo} from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import moment from "moment";
@@ -95,10 +95,10 @@ let EventExcerpt = ({ event, goToEditPage, setEventId }) => {
         </div>
       </Link>
       <div className="userpage__event__buttons__container">
-        <button className="button" onClick={() => goToEditPage(_id)}>
-          Изменить
+        <button className="button">
+          <Link to={`/events/edit/${event._id}`} state={{ eventId: event._id }}>Изменить</Link>
         </button>
-        <button className="button" onClick={() => setEventId(_id)}>
+        <button className="button" onClick={() => setEventId(event._id)}>
           Удалить
         </button>
       </div>
@@ -132,7 +132,7 @@ function UserPage() {
     navigate("/events/add");
   };
   const goToEditPage = (eventId) => {
-    navigate(`/events/edit/${eventId}`);
+    navigate(`/events/edit/${eventId}`, eventId);
   };
 
   const sortedEvents = useMemo(() => {

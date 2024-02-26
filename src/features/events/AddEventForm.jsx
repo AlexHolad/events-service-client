@@ -333,7 +333,7 @@ const AddEventForm = () => {
           }}
         />
       </div>
-      <div>{/* <div>{parse(convertedContent)}</div> */}</div>
+      <div> <a target="_blank" href="https://t.me/share/url?url=Hi,How Are You ?">Share Hi,How Are You ? To Telegram</a></div>
       <div className="actions">
         <Button className="form__btn" action={handleSend}>
           {"Сохранить"}
