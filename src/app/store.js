@@ -4,7 +4,7 @@ import moment from 'moment'
 
 const mode = "PROD"
 
-const baseURL = mode === "PROD" ? "http://localhost:5000": "https://events-service-api.onrender.com";
+const baseURL = mode === "DEV" ? "http://localhost:5000": "https://events-service-api.onrender.com";
 axios.defaults.withCredentials = true;
 
 const useEventStore = create((set, get) => ({
