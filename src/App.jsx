@@ -57,7 +57,7 @@ function App() {
 
           {/* USER ROLE 'ORG' CAN REGISTER ADD EDIT AND DELETE THEIR EVENTS*/}
           <Route path="user" element={<UserPage />} />
-          <Route path="events/add" element={<AddEventForm />} />
+          <Route path="add" element={<AddEventForm />} />
           <Route path="events/edit/:eventId" element={<EditEventForm/>} />
           <Route path="events/preview/:id" element={<h1>Edit Event</h1>} />
           

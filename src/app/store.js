@@ -2,7 +2,7 @@ import { create } from "zustand";
 import axios from "axios";
 import moment from 'moment'
 
-const mode = "PROD"
+const mode = "DEV"
 
 const baseURL = mode === "DEV" ? "http://localhost:5000": "https://events-service-api.onrender.com";
 axios.defaults.withCredentials = true;
@@ -289,6 +289,31 @@ const useEventStore = create((set, get) => ({
       console.log(eventId)
       set({ eventId });
     },
+    addNewTelegramPost: async (postData) => {
+      console.log("posting in Telegram started");
+      console.log(get().accessToken);
+      try {
+        const response = await axios.post(`${baseURL}/post/telegram`, postData, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${get().accessToken}`,
+          },
+        });
+        const { data } = response;
+        const {message} = data
+        console.log(data);
+        return message
+      } catch (error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      }
+    }
+
   },
 }));
 

@@ -129,7 +129,7 @@ function UserPage() {
   };
 
   const goToAdding = () => {
-    navigate("/events/add");
+    navigate("/add");
   };
   const goToEditPage = (eventId) => {
     navigate(`/events/edit/${eventId}`, eventId);
